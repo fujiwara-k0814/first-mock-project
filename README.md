@@ -7,7 +7,7 @@ Dockerビルド
 
   
 Laravel環境構築  
- 1.docker compose exec php bash  
+ 1.docker-compose exec php bash  
  2.compopser install  
  3..env.exampleファイルから.envファイルを作成し、環境変数を設定  
  4.php artisan key:generate  

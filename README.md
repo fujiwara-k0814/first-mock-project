@@ -2,12 +2,12 @@
 ## 環境構築
 Dockerビルド  
  1.git clone リンク　git@github.com:fujiwara-k0814/first-mock-project.git  
- 2.docker-compose -up -d --build  
+ 2.docker compose up -d --build  
 ※MySQLはOSの都合上、各人でファイルを編集  
-
+  
   
 Laravel環境構築  
- 1.docker-compose exec php bash  
+ 1.docker compose exec php bash  
  2.compopser install  
  3..env.exampleファイルから.envファイルを作成し、環境変数を設定  
  4.php artisan key:generate  

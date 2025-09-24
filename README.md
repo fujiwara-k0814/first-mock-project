@@ -1,7 +1,7 @@
 # フリマアプリ
 ## 環境構築
 Dockerビルド  
- 1.git clone リンク　git@github.com:fujiwara-k0814/first-mock-project.git
+ 1.git clone リンク　git@github.com:fujiwara-k0814/first-mock-project.git  
  2.docker-compose -up -d --build  
 ※MySQLはOSの都合上、各人でファイルを編集  
   

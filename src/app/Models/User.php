@@ -18,10 +18,34 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
+        'image_path',
         'name',
         'email',
         'password',
+        'postal_code',
+        'address',
+        'building'
     ];
+
+    public function comments(){
+        return $this->hasMany(Comment::class);
+    }
+
+    public function likes(){
+        return $this->hasMany(Like::class);
+    }
+
+    public function purchases(){
+        return $this->hasMany(Purchase::class);
+    }
+
+    public function sells(){
+        return $this->hasMany(Sell::class);
+    }
+
+    public function deliveryAddress(){
+        return $this->hasOne(DeliveryAddress::class);
+    }
 
     /**
      * The attributes that should be hidden for serialization.

@@ -23,7 +23,7 @@ Laravel環境構築
 
   
 ## ER図  
-<img width="643" height="795" alt="image" src="https://github.com/user-attachments/assets/a9acff98-061b-4718-ba7c-fb67eca48bf8" />
+<img width="639" height="786" alt="image" src="https://github.com/user-attachments/assets/770ddf43-898e-470a-962b-1949032bc3e0" />
   
   
 ## URL

@@ -2,9 +2,41 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Item;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ItemController extends Controller
 {
-    //
+    public function index()
+    {
+        $items = Item::with(['purchase'])
+                    ->get();
+
+
+        $user = Auth::user();
+        if ($user) {
+            $sold = $user->soldItems;
+        } else {
+            $sold = collect();
+        }
+
+
+        return view('index', compact('items', 'sold'));
+    }
+
+    public function show($item_id)
+    {
+        $item = Item::with(['categories','comments','likes','purchase'])
+                    ->withCount(['comments', 'likes'])
+                    ->find($item_id);
+
+
+        $user = User::with(['delivery_address', 'likes', 'sells'])
+                    ->get();
+
+
+        return view('item', compact('item', 'user'));
+    }
 }

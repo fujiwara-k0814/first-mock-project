@@ -1,0 +1,24 @@
+.item-detail__contet {
+    max-width: 1540px;
+    display: flex;
+    padding: 40px 80px;
+}
+
+.item-image__content{
+    width: 45%;
+    height: 580px;
+    
+}
+
+.item-image {
+    width: 100%;
+}
+
+.item-detaile-information__content {
+    margin-left: 70px;
+}
+
+.item-name {
+    font-size: 42px;
+    
+}

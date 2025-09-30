@@ -18,8 +18,8 @@ class Item extends Model
         'condition'
     ];
 
-    public function categoryTags(){
-        return $this->hasMany(CategoryTag::class);
+    public function categories(){
+        return $this->belongsToMany(Category::class);
     }
 
     public function comments(){
@@ -36,5 +36,17 @@ class Item extends Model
 
     public function sell(){
         return $this->hasOne(Sell::class);
+    }
+
+
+
+    //ラベル化(商品状態)
+    public function getConditionLabelAttribute(){
+        return [
+            1 => '良好',
+            2 => '目立った傷や汚れなし',
+            3 => 'やや傷や汚れあり',
+            4 => '状態が悪い'
+        ][$this->condition];
     }
 }

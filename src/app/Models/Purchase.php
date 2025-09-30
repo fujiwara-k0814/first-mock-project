@@ -29,6 +29,7 @@ class Purchase extends Model
     }
 
 
+    
     //ラベル化(支払い方法)
     public function getPaymentMethodLabelAttribute(){
         return [

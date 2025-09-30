@@ -12,7 +12,9 @@ Laravel環境構築
  3..env.exampleファイルから.envファイルを作成し、環境変数を設定  
  4.php artisan key:generate  
  5.php artisan migrate  
- 6.php artisan db:seed  
+ 6.cp -r database/seeders/images/* storage/app/public
+ 7.php artisan storage:link
+ 8.php artisan db:seed  
 
    
 ## 使用技術

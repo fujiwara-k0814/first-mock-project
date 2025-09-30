@@ -47,6 +47,46 @@ class User extends Authenticatable
         return $this->hasOne(DeliveryAddress::class);
     }
 
+    //Users→Comment→Itemsの紐づけ
+    public function commentedItem()
+    {
+        return $this->hasManyThrough(
+                                Item::class,
+                                Comment::class,
+                                'user_id',
+                                'id',
+                                'id',
+                                'item_id'
+                            );
+    }
+
+    //Users→Likes→Itemsの紐づけ
+    public function likedItems()
+    {
+        return $this->hasManyThrough(
+                                Item::class, 
+                                Like::class, 
+                                'user_id', 
+                                'id', 
+                                'id', 
+                                'item_id'
+                            );
+    }
+
+    //Users→Sells→Itemの紐づけ
+    public function soldItems()
+    {
+        return $this->hasManyThrough(
+                                Item::class, 
+                                Sell::class, 
+                                'user_id', 
+                                'id', 
+                                'id', 
+                                'item_id'
+                            );
+    }
+
+
     /**
      * The attributes that should be hidden for serialization.
      *

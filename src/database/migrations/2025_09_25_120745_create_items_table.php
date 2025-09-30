@@ -17,7 +17,7 @@ class CreateItemsTable extends Migration
             $table->id();
             $table->string('image_path');
             $table->string('name');
-            $table->string('brand');
+            $table->string('brand')->nullable();
             $table->integer('price');
             $table->text('description');
             $table->tinyInteger('condition')->comment('1:良好, 2:目立った傷や汚れなし, 3:やや傷や汚れあり, 4:状態が悪い');

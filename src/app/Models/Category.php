@@ -14,7 +14,7 @@ class Category extends Model
         'name'
     ];
 
-    public function categoryTags(){
-        return $this->hasMany(CategoryTag::class);
+    public function items(){
+        return $this->belongsToMany(Item::class);
     }
 }

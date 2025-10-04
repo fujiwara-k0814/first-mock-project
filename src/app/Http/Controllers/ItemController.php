@@ -16,6 +16,7 @@ class ItemController extends Controller
 
 
         $user = Auth::user();
+        
         if ($user) {
             $sold = $user->soldItems;
         } else {
@@ -33,8 +34,14 @@ class ItemController extends Controller
                     ->find($item_id);
 
 
-        $user = User::with(['delivery_address', 'likes', 'sells'])
-                    ->get();
+        $user = Auth::user();
+
+        if ($user) {
+            $user->load(['delivery_address', 'likes', 'sells']);
+        } else {
+            $user = collect();
+        }
+
 
 
         return view('item', compact('item', 'user'));

@@ -22,9 +22,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'postal_code',
-        'address',
-        'building'
+        'first_login_done'
     ];
 
     public function comments(){
@@ -43,7 +41,7 @@ class User extends Authenticatable
         return $this->hasMany(Sell::class);
     }
 
-    public function deliveryAddress(){
+    public function delivery_address(){
         return $this->hasOne(DeliveryAddress::class);
     }
 

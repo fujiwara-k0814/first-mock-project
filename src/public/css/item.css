@@ -1,13 +1,13 @@
 .item-detail__contet {
     max-width: 1540px;
-    display: flex;
-    padding: 40px 80px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 90px;
+    padding: 80px 90px;
 }
 
 .item-image__content{
-    width: 45%;
-    height: 580px;
-    
+    width: 100%;
 }
 
 .item-image {
@@ -15,10 +15,10 @@
 }
 
 .item-detaile-information__content {
-    margin-left: 70px;
+    width: 45%;
 }
 
 .item-name {
-    font-size: 42px;
-    
+    font-size: 46px;
+    display: inline;
 }

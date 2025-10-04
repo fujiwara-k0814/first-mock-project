@@ -76,3 +76,18 @@
     padding: 5px 20px;
     border-radius: 3px;
 }
+
+.header__login-button {
+    width: 110px;
+    display: inline-block;
+}
+
+.header__logout-button {
+    display: inline-block;
+    font-size: 22px;
+    color: white;
+    background-color: black;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+}

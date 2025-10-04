@@ -19,9 +19,7 @@ class CreateUsersTable extends Migration
             $table->string('name');
             $table->string('email');
             $table->string('password');
-            $table->string('postal_code');
-            $table->string('address');
-            $table->string('building')->nullable();
+            $table->boolean('first_login_done')->default(false);
             $table->timestamp('created_at')->useCurrent()->nullable();
             $table->timestamp('updated_at')->useCurrent()->nullable();
         });

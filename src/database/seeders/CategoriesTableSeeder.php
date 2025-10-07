@@ -28,7 +28,7 @@ class CategoriesTableSeeder extends Seeder
             ['id' => 11, 'name' => 'ハンドメイド'],
             ['id' => 12, 'name' => 'アクセサリー'],
             ['id' => 13, 'name' => 'おもちゃ'],
-            ['id' => 14, 'name' => 'ベビー・キッズ'],
+            ['id' => 14, 'name' => 'ベビー・キッズ']
         ];
 
         foreach ($categories as $category){

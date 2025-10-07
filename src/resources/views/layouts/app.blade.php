@@ -13,14 +13,15 @@
     <header class="header">
         <div class="header__inner">
             <div class="header-logo__content">
-                <img src="/images/logo.svg">
+                <a href="/" class="header-logo__home-link">
+                    <img src="/images/logo.svg">
+                </a>
             </div>
             <div class="header__search-content">
                 <form action="/" method="get" class="header__search-form">
                     @csrf
                     <input type="text" name="keyword" class="header__search-input" placeholder="なにをお探しですか？">
                 </form>
-                <button type="submit" class="header__search-button">検索</button>
             </div>
             <nav class="header__nav">
                 <ul class="header__nav-list">

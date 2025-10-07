@@ -11,8 +11,7 @@ class ItemController extends Controller
 {
     public function index()
     {
-        $items = Item::with(['purchase'])
-                    ->get();
+        $items = Item::all();
 
 
         $user = Auth::user();
@@ -29,15 +28,15 @@ class ItemController extends Controller
 
     public function show($item_id)
     {
-        $item = Item::with(['categories','comments','likes','purchase'])
+        $item = Item::with(['categories', 'comments', 'condition', 'likes'])
                     ->withCount(['comments', 'likes'])
                     ->find($item_id);
-
+        
 
         $user = Auth::user();
 
         if ($user) {
-            $user->load(['delivery_address', 'likes', 'sells']);
+            $user->load(['delivery_address', 'likes']);
         } else {
             $user = collect();
         }

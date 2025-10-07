@@ -21,18 +21,24 @@ use App\Http\Controllers\OnboardingController;
 */
 
 //商品ページ
-Route::get('/', [ItemController::class, 'index'])->middleware('first.login');
+Route::get('/', [ItemController::class, 'index']);
 Route::get('/item/{item_id}', [ItemController::class, 'show']);
 
 
 //
 Route::middleware(['auth', 'first.login'])->group(function(){
-    Route::get('/purchase', [PurchaseController::class, 'purchase']);
-
+    Route::get('/mypage', [MypageController::class, 'show']);
+    Route::get('/sell', [SellController::class, 'create']);
+    Route::post('/sell', [SellController::class, 'store']);
+    Route::post('/sell/image', [SellController::class, 'tempImage']);
+    Route::get('/purchase/{item_id}', [PurchaseController::class, 'show']);
+    Route::post('/purchase/{item_id}', [PurchaseController::class, 'store']);
+    Route::get('/purchase/address/{item_id}', [PurchaseController::class, 'show']);
+    Route::post('/purchase/address/{item_id}', [PurchaseController::class, 'update']);
 });
 
 
-//初回登録ページ
+//
 Route::middleware('auth')->group(function(){
     Route::get('/mypage/profile', [MypageController::class, 'create']);
     Route::post('/mypage/profile', [MypageController::class, 'store']);

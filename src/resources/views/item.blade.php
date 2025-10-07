@@ -25,7 +25,7 @@
             </div>
             <button type="submit" class="item__purchase-button">購入手続きへ</button>
             <h2 class="item-description__title">商品説明</h2>
-            <span class="item-description__text"></span>
+            <span class="item-description__text">{{ $item->description }}</span>
             <h2 class="item-information__title">商品の情報</h2>
             <h3 class="item-category__title">カテゴリー</h3>
             <div class="item-category__content">
@@ -37,7 +37,7 @@
             <span class="item-condition">{{ $item->condition_label }}</span>
             <h2 class="item-comment__title">コメント({{$item->comments_count}})</h2>
             <img src="" alt="プロフィール画像">
-            <h3 class="item-comment__user-name">a</h3>
+            <h3 class="item-comment__user-name">{{ $item->comment }}</h3>
             <span class="item-comment">
                 b
             </span>

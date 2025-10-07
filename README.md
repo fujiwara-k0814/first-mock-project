@@ -7,15 +7,16 @@ Dockerビルド
   
   
 Laravel環境構築  
- 1.docker compose exec php bash  
- 2.compopser install  
- 3..env.exampleファイルから.envファイルを作成し、環境変数を設定  
- 4.php artisan key:generate  
- 5.php artisan migrate  
- 6.cp -r database/seeders/images/* storage/app/public
- 7.php artisan storage:link
- 8.php artisan db:seed  
-
+ 1.mkdir src/storage/app/public/item_images  
+ 2.cp -r src/database/seeders/images/* src/storage/app/public/item_images  
+ 3.docker compose exec php bash  
+ 4.compopser install  
+ 5..env.exampleファイルから.envファイルを作成し、環境変数を設定  
+ 6.php artisan key:generate  
+ 7.php artisan migrate  
+ 8.php artisan storage:link  
+ 9.php artisan db:seed  
+  
    
 ## 使用技術
 ・PHP 8.1  

@@ -22,26 +22,28 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'first_login_done'
+        'postal_code',
+        'address',
+        'building'
     ];
 
-    public function comments(){
+    public function comments()
+    {
         return $this->hasMany(Comment::class);
     }
 
-    public function likes(){
+    public function likes()
+    {
         return $this->hasMany(Like::class);
     }
 
-    public function purchases(){
-        return $this->hasMany(Purchase::class);
-    }
-
-    public function sells(){
+    public function sells()
+    {
         return $this->hasMany(Sell::class);
     }
 
-    public function delivery_address(){
+    public function delivery_address()
+    {
         return $this->hasOne(DeliveryAddress::class);
     }
 
@@ -49,39 +51,39 @@ class User extends Authenticatable
     public function commentedItem()
     {
         return $this->hasManyThrough(
-                                Item::class,
-                                Comment::class,
-                                'user_id',
-                                'id',
-                                'id',
-                                'item_id'
-                            );
+            Item::class,
+            Comment::class,
+            'user_id',
+            'id',
+            'id',
+            'item_id'
+        );
     }
 
     //Users→Likes→Itemsの紐づけ
     public function likedItems()
     {
         return $this->hasManyThrough(
-                                Item::class, 
-                                Like::class, 
-                                'user_id', 
-                                'id', 
-                                'id', 
-                                'item_id'
-                            );
+            Item::class,
+            Like::class,
+            'user_id',
+            'id',
+            'id',
+            'item_id'
+        );
     }
 
     //Users→Sells→Itemの紐づけ
     public function soldItems()
     {
         return $this->hasManyThrough(
-                                Item::class, 
-                                Sell::class, 
-                                'user_id', 
-                                'id', 
-                                'id', 
-                                'item_id'
-                            );
+            Item::class,
+            Sell::class,
+            'user_id',
+            'id',
+            'id',
+            'item_id'
+        );
     }
 
 

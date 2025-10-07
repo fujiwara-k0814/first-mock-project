@@ -24,23 +24,26 @@ class MypageController extends Controller
         return redirect('/mypage/profile');
     }
 
-
+    
     public function store(Request $request)
     {
-        $deliveryAddress = $request->only([
+        $userAddress = $request->only([
             'postal_code',
             'address',
             'building',
         ]);
 
+
         $user = Auth::user();
 
-        if ($user->delivery_address) {
-            $user->delivery_address()->update($deliveryAddress);
-        }else{
-            $user->delivery_address()->create($deliveryAddress);
-        }
 
+        if ($user->delivery_address) {
+            $user->delivery_address->update($userAddress);
+            $path = '/mypage';
+        }else{
+            $user->delivery_address()->create($userAddress);
+            $path = '/';
+        }
 
 
         if (session()->has('profile_image')) {
@@ -51,10 +54,26 @@ class MypageController extends Controller
             session()->forget('profile_image');
         }
 
+
         $user->name = $request->input('name');
 
-        $user->first_login_done = true;
+        $user->fill($userAddress);
 
         $user->save();
+
+
+        return redirect($path);
+    }
+
+
+    public function show()
+    {
+        $user = Auth::user();
+
+        $userItems = $user->soldItems;
+
+        session()->forget('profile_image');
+
+        return view('mypage', compact('user', 'userItems'));
     }
 }

@@ -1,0 +1,11 @@
+.profile-image__label {
+    cursor: pointer;
+}
+
+.profile-image__select {
+    display: none;
+}
+
+.profile-form__button {
+    cursor: pointer;
+}

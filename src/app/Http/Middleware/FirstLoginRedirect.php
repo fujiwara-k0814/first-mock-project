@@ -19,7 +19,7 @@ class FirstLoginRedirect
     {
         $user = Auth::user();
 
-        if ($user && !$user->first_login_done) {
+        if ($user && !$user->delivery_address) {
             return redirect('/mypage/profile');
         }
         

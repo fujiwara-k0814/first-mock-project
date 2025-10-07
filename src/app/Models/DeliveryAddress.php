@@ -16,8 +16,8 @@ class DeliveryAddress extends Model
         'building'
     ];
 
-    public function purchase(){
-        return $this->hasOne(Purchase::class);
+    public function item(){
+        return $this->hasOne(Item::class);
     }
 
     public function user(){

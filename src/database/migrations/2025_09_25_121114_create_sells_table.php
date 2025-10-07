@@ -14,7 +14,7 @@ class CreateSellsTable extends Migration
     public function up()
     {
         Schema::create('sells', function (Blueprint $table) {
-            $table->foreignId('item_id')->unique()->constrained()->cascadeOnDelete();
+            $table->foreignId('item_id')->primary()->constrained()->cascadeOnDelete();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->timestamp('created_at')->useCurrent()->nullable();
             $table->timestamp('updated_at')->useCurrent()->nullable();

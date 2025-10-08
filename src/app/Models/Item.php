@@ -43,7 +43,7 @@ class Item extends Model
         return $this->hasOne(Sell::class);
     }
 
-    //Items→Comment→Usersの紐づけ
+    //Items→Comments→Usersの紐づけ
     public function commentedUser(){
         return $this->hasManyThrough(
             User::class,

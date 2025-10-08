@@ -17,8 +17,8 @@
                     <span class="register-form__label">ユーザー名</span>
                 </div>
                 <div class="register-form__group-content">
-                    <div class="register-form__input">
-                        <input type="text" name="name" value="{{ old('name') }}">
+                    <div class="register-form__input-inner">
+                        <input type="text" name="name" class="login-form__input" value="{{ old('name') }}">
                     </div>
                     <div class="register-form__error">
                         @error('name')
@@ -32,8 +32,8 @@
                     <span class="register-form__label">メールアドレス</span>
                 </div>
                 <div class="register-form__group-content">
-                    <div class="register-form__input">
-                        <input type="text" name="email" value="{{ old('email') }}">
+                    <div class="register-form__input-inner">
+                        <input type="text" name="email" class="login-form__input" value="{{ old('email') }}">
                     </div>
                     <div class="register-form__error">
                         @error('email')
@@ -47,8 +47,8 @@
                     <span class="register-form__label">パスワード</span>
                 </div>
                 <div class="register-form__group-content">
-                    <div class="register-form__input">
-                        <input type="password" name="password" value="{{ old('password') }}">
+                    <div class="register-form__input-inner">
+                        <input type="password" name="password" class="login-form__input" value="{{ old('password') }}">
                     </div>
                     <div class="register-form__error">
                         @error('password')
@@ -62,8 +62,8 @@
                     <span class="register-form__label">確認用パスワード</span>
                 </div>
                 <div class="register-form__group-content">
-                    <div class="register-form__input">
-                        <input type="password" name="password_confirmation" value="{{ old('password_confirmation') }}">
+                    <div class="register-form__input-inner">
+                        <input type="password" name="password_confirmation" class="login-form__input" value="{{ old('password_confirmation') }}">
                     </div>
                     <div class="register-form__error">
                         @error('password_confirmation')

@@ -17,8 +17,8 @@
                     <span class="login-form__title">メールアドレス</span>
                 </div>
                 <div class="login-form__group-content">
-                    <div class="login-form__input">
-                        <input type="text" name="email" value="{{ old('email') }}">
+                    <div class="login-form__input-inner">
+                        <input type="text" name="email" class="login-form__input" value="{{ old('email') }}">
                     </div>
                     <div class="login-form__error">
                         @error('email')
@@ -32,8 +32,8 @@
                     <span class="login-form__title">パスワード</span>
                 </div>
                 <div class="login-form__group-content">
-                    <div class="login-form__input">
-                        <input type="password" name="password">
+                    <div class="login-form__input-inner">
+                        <input type="password" name="password" class="login-form__input">
                     </div>
                     <div class="login-form__error">
                         @error('password')

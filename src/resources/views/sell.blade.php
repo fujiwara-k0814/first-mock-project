@@ -17,7 +17,7 @@
             @php
                 $itemImage = session('item_image')
             @endphp
-            <img src="{{ asset('storage/' . $itemImage) }}" alt="商品画像" class="sell-image">
+            <img src="{{ asset($itemImage) }}" alt="商品画像" class="sell-image">
         </div>
         <form action="/sell/image" method="post" class="sell-image-form" enctype="multipart/form-data">
             @csrf
@@ -27,7 +27,7 @@
             </label>
         </form>
     </div>
-    <form action="/sell" method="post" class="sell-information-form">
+    <form action="/sell" method="post" class="sell-form">
         @csrf
         <div class="sell-detail__content">
             <div class="sell-detail__heading">
@@ -85,7 +85,7 @@
                     <span class="sell-discription__label">商品の説明</span>
                 </div>
                 <div class="sell-discription__content">
-                    <textarea name="discription" class="sell-discription"></textarea>
+                    <textarea name="description" class="sell-discription"></textarea>
                 </div>
             </div>
             <div class="sell-discription__price">
@@ -97,6 +97,7 @@
                 </div>
             </div>
         </div>
+        <button type="submit" class="sell-form__button">出品する</button>
     </form>
 </div>
 @endsection

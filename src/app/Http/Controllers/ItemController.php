@@ -2,28 +2,26 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Comment;
 use App\Models\Item;
-use App\Models\User;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class ItemController extends Controller
 {
     public function index()
     {
-        $items = Item::all();
-
-
         $user = Auth::user();
         
         if ($user) {
-            $sold = $user->soldItems;
-        } else {
-            $sold = collect();
+            $soldItemIds = $user->soldItems()->pluck('id');
+
+            $items = Item::whereNotIn('id', $soldItemIds)->get();
+        }else{
+            $items = Item::all();
         }
 
 
-        return view('index', compact('items', 'sold'));
+        return view('index', compact('items'));
     }
 
     public function show($item_id)
@@ -33,16 +31,12 @@ class ItemController extends Controller
                     ->find($item_id);
         
 
-        $user = Auth::user();
-
-        if ($user) {
-            $user->load(['delivery_address', 'likes']);
-        } else {
-            $user = collect();
-        }
+        $comments = Comment::where('item_id', $item_id)->get();
 
 
+        session()->forget('payment');
 
-        return view('item', compact('item', 'user'));
+
+        return view('item', compact('item', 'comments'));
     }
 }

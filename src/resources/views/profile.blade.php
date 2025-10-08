@@ -15,9 +15,9 @@
                 $profileImage = session('profile_image')
             @endphp
             @if ($profileImage)
-                <img src="{{ asset('storage/' . $profileImage) }}" alt="プロフィール画像" class="profile-image">
+                <img src="{{ asset($profileImage) }}" alt="プロフィール画像" class="profile-image">
             @elseif ($user->image_path)
-                <img src="{{ asset('storage/' . $user->image_path) }}" alt="プロフィール画像" class="profile-image">
+                <img src="{{ asset($user->image_path) }}" alt="プロフィール画像" class="profile-image">
             @endif
         </div>
         <form action="/mypage/profile/image" method="post" class="profile-image-form" enctype="multipart/form-data">
@@ -35,8 +35,8 @@
                 <span class="profile-form__title">ユーザー名</span>
             </div>
             <div class="profile-form__group-content">
-                <div class="profile-form__input">
-                    <input type="text" name="name" value="{{ old('name', $user->name) }}">
+                <div class="profile-form__input-inner">
+                    <input type="text" name="name" class="login-form__input" value="{{ old('name', $user->name) }}">
                 </div>
                 <div class="profile-form__error">
                     @error('name')
@@ -50,8 +50,8 @@
                 <span class="profile-form__title">郵便番号</span>
             </div>
             <div class="profile-form__group-content">
-                <div class="profile-form__input">
-                    <input type="text" name="postal_code" value="{{ old('postal_code') ?? $user->postal_code }}">
+                <div class="profile-form__input-inner">
+                    <input type="text" name="postal_code" class="login-form__input" value="{{ old('postal_code') ?? $user->postal_code }}">
                 </div>
                 <div class="profile-form__error">
                     @error('postal_code')
@@ -65,8 +65,8 @@
                 <span class="profile-form__title">住所</span>
             </div>
             <div class="profile-form__group-content">
-                <div class="profile-form__input">
-                    <input type="text" name="address" value="{{ old('address') ?? $user->address }}">
+                <div class="profile-form__input-inner">
+                    <input type="text" name="address" class="login-form__input" value="{{ old('address') ?? $user->address }}">
                 </div>
                 <div class="profile-form__error">
                     @error('address')
@@ -80,8 +80,8 @@
                 <span class="profile-form__title">建物名</span>
             </div>
             <div class="profile-form__group-content">
-                <div class="profile-form__input">
-                    <input type="text" name="building" value="{{ old('building') ?? $user->building }}">
+                <div class="profile-form__input-inner">
+                    <input type="text" name="building" class="login-form__input" value="{{ old('building') ?? $user->building }}">
                 </div>
                 <div class="profile-form__error">
                     @error('building')

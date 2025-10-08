@@ -47,7 +47,7 @@ class User extends Authenticatable
         return $this->hasOne(DeliveryAddress::class);
     }
 
-    //Users→Comment→Itemsの紐づけ
+    //Users→Comments→Itemsの紐づけ
     public function commentedItem()
     {
         return $this->hasManyThrough(

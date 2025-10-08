@@ -12,16 +12,14 @@
     </div>
     <div class="item-list__inner">
         @foreach ($items as $item)
-            {{-- @if ($sold->soldItems->isEmpty()) --}}
-                <a href="/item/{{ $item->id }}" class="item-detail__link">
-                    <div class="item-card">
-                        <div class="item-image__content">
-                            <img src="{{ asset($item->image_path) }}" alt="商品画像" class="item-image">
-                        </div>
-                        <span class="item-name">{{ $item->name }}</span>
+            <a href="/item/{{ $item->id }}" class="item-detail__link">
+                <div class="item-card">
+                    <div class="item-image__content">
+                        <img src="{{ asset($item->image_path) }}" alt="商品画像" class="item-image">
                     </div>
-                </a>
-            {{-- @endif --}}
+                    <span class="item-name">{{ $item->name }}</span>
+                </div>
+            </a>
         @endforeach
     </div>
 </div>

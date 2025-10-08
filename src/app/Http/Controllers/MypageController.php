@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Item;
 
 class MypageController extends Controller
 {
@@ -19,7 +20,7 @@ class MypageController extends Controller
     {
         $path = $request->file('image')->store('profile_images', 'public');
 
-        session(['profile_image' => $path]);
+        session(['profile_image' => "storage/$path"]);
 
         return redirect('/mypage/profile');
     }
@@ -66,14 +67,18 @@ class MypageController extends Controller
     }
 
 
-    public function show()
+    public function show(Request $request)
     {
         $user = Auth::user();
 
-        $userItems = $user->soldItems;
+        if ($request->query('page') === "buy") {
+            $items = Item::where('delivery_address_id', $user->delivery_address->id)->get();
+        }else{
+            $items = $user->soldItems;
+        }
 
         session()->forget('profile_image');
 
-        return view('mypage', compact('user', 'userItems'));
+        return view('mypage', compact('user', 'items'));
     }
 }

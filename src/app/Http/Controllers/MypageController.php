@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Item;
+use App\Http\Requests\ProfileRequest;
 
 class MypageController extends Controller
 {
@@ -12,22 +13,26 @@ class MypageController extends Controller
     {
         $user = Auth::user();
 
+        
         return view('profile', compact('user'));
     }
-
-
-    public function tempImage(Request $request)
-    {
-        $path = $request->file('image')->store('profile_images', 'public');
-
-        session(['profile_image' => "storage/$path"]);
-
-        return redirect('/mypage/profile');
-    }
-
     
-    public function store(Request $request)
+    public function store(ProfileRequest $request)
     {
+        if (!$request->has('action')) {
+            if (!$request->file('image')) {
+                return redirect('/mypage/profile')->withInput();
+            }
+
+
+            $imagePath = $request->file('image')->store('profile_images', 'public');
+
+            session(['profile_image' => "storage/$imagePath"]);
+
+            return redirect('/mypage/profile')->withInput();
+        }
+
+
         $userAddress = $request->only([
             'postal_code',
             'address',
@@ -40,19 +45,23 @@ class MypageController extends Controller
 
         if ($user->delivery_address) {
             $user->delivery_address->update($userAddress);
-            $path = '/mypage';
+            $redirectPath = '/mypage';
         }else{
             $user->delivery_address()->create($userAddress);
-            $path = '/';
+            $redirectPath = '/';
         }
 
 
         if (session()->has('profile_image')) {
-            $imagePath = session('profile_image');
-            
-            $user->image_path = $imagePath;
+            $user->image_path = session('profile_image');
 
             session()->forget('profile_image');
+        }else{
+            if ($request->file('image')) {
+                $imagePath = $request->file('image')->store('profile_images', 'public');
+
+                $user->image_path = "storage/$imagePath";
+            }
         }
 
 
@@ -63,7 +72,7 @@ class MypageController extends Controller
         $user->save();
 
 
-        return redirect($path);
+        return redirect($redirectPath);
     }
 
 
@@ -77,7 +86,12 @@ class MypageController extends Controller
             $items = $user->soldItems;
         }
 
+
         session()->forget('profile_image');
+
+
+        session()->forget('item_image');
+
 
         return view('mypage', compact('user', 'items'));
     }

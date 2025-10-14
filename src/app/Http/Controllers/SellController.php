@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\Condition;
 use App\Models\Item;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\ExhibitionRequest;
 
 class SellController extends Controller
 {
@@ -14,22 +15,30 @@ class SellController extends Controller
     {
         $categories = Category::all();
 
+
         $conditions = Condition::all();
+
 
         return view('sell', compact('categories', 'conditions'));
     }
 
-    public function tempImage(Request $request)
+    public function store(ExhibitionRequest $request)
     {
-        $path = $request->file('image')->store('item_images', 'public');
+        if (!$request->has('action')) {
+            if (!$request->file('image')) {
+                return redirect('/sell')->withInput();
+            }
 
-        session(['item_image' => "storage/$path"]);
 
-        return redirect('/sell');
-    }
+            $imagePath = $request->file('image')->store('item_images', 'public');
 
-    public function store(Request $request)
-    {
+            session(['item_image' => "storage/$imagePath"]);
+
+
+            return redirect('/sell')->withInput();
+        }
+        
+
         $itemInformation = $request->only([
             'name',
             'brand',
@@ -40,11 +49,13 @@ class SellController extends Controller
         $itemInformation['condition_id'] = $request->input('condition');
 
         if (session()->has('item_image')) {
-            $imagePath = session('item_image');
-
-            $itemInformation['image_path'] = $imagePath;
+            $itemInformation['image_path'] = session('item_image');
 
             session()->forget('item_image');
+        }else{
+            $imagePath = $request->file('image')->store('item_images', 'public');
+
+            $itemInformation['image_path'] = "storage/$imagePath";
         }
 
         $item = Item::create($itemInformation);

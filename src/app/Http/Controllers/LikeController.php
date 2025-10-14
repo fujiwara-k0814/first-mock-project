@@ -21,7 +21,7 @@ class LikeController extends Controller
     {
         $user = Auth::user();
 
-        $user->where('item_id', $item_id)->delete();
+        $user->likes()->where('item_id', $item_id)->delete();
 
 
         return redirect("/item/$item_id");

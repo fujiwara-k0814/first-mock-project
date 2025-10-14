@@ -17,6 +17,10 @@ use Laravel\Fortify\Contracts\LoginResponse;
 use App\Http\Responses\CustomLoginResponse;
 use Laravel\Fortify\Contracts\RegisterResponse;
 use App\Http\Responses\CustomRegisterResponse;
+use App\Http\Requests\LoginRequest;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
+use Laravel\Fortify\Http\Requests\LoginRequest as FortifyLoginRequest;
 
 class FortifyServiceProvider extends ServiceProvider
 {
@@ -49,5 +53,7 @@ class FortifyServiceProvider extends ServiceProvider
 
             return Limit::perMinute(10)->by($email . $request->ip());
         });
+
+        $this->app->bind(FortifyLoginRequest::class, LoginRequest::class);
     }
 }

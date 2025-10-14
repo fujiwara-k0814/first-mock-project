@@ -1013,6 +1013,15 @@
             'aliases' => array(),
             'dev_requirement' => true,
         ),
+        'stripe/stripe-php' => array(
+            'pretty_version' => 'v18.0.0',
+            'version' => '18.0.0.0',
+            'reference' => '70d6c286f0eca002b60ccd62afa7140c43c14bbb',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../stripe/stripe-php',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
         'swiftmailer/swiftmailer' => array(
             'pretty_version' => 'v6.3.0',
             'version' => '6.3.0.0',

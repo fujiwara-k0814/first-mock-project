@@ -23,8 +23,19 @@
                 <div class="item-icon__content">
                     <div class="item-icon__group">
                         <div class="item-icon__inner">
-                            <form action="" method="post"></form>
-                            <img src="/images/star_icon.svg" alt="いいね画像" class="item__icon">
+                            <form action="/item/{{ $item->id }}/like" method="post" class="item-favorite-form">
+                                @csrf
+                                @if (Auth::check() && $user->likes->contains('item_id', $item->id))
+                                    @method('DELETE')
+                                    <button type="submit" class="item-favorite-button">
+                                        <img src="/images/liked_icon.svg" alt="いいね画像" class="item__icon">
+                                    </button>
+                                @else
+                                    <button type="submit" class="item-favorite-button">
+                                        <img src="/images/like_icon.svg" alt="いいね画像" class="item__icon">
+                                    </button>
+                                @endif
+                            </form>
                         </div>
                         <div class="item-count__content">
                             <span class="item__count">{{ $item->likes_count }}</span>
@@ -39,7 +50,11 @@
                         </div>
                     </div>
                 </div>
-                <a href="/purchase/{{ $item->id }}" class="item__purchase-link">購入手続きへ</a>
+                @if ($item->delivery_address_id)
+                    <span class="item__purchase-link">購入手続きへ</span>
+                @else
+                    <a href="/purchase/{{ $item->id }}" class="item__purchase-link">購入手続きへ</a>
+                @endif
             </div>
             <div class="item-description__content">
                 <div class="item-description__heading">
@@ -100,7 +115,12 @@
                 </div>
                 <form action="/item/{{ $item->id }}/comment" method="post" class="item-comment-form">
                     @csrf
-                    <textarea name="comment" class="item-comment"></textarea>
+                    <textarea name="comment" class="item-comment">{{ old('comment') }}</textarea>
+                    <div class="item-comment-form__error">
+                        @error('comment')
+                            {{ $message }}
+                        @enderror
+                    </div>
                     @if (Auth::user())
                         <button type="submit" class="item-comment-form__button">コメントを送信する</button>
                     @else

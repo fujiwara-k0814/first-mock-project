@@ -18,7 +18,7 @@
                 </div>
                 <div class="address-form__group-content">
                     <div class="address-form__input-inner">
-                        <input type="text" name="postal_code" class="address-form__input" value="{{ $deliveryAddress->postal_code }}">
+                        <input type="text" name="postal_code" class="address-form__input" value="{{ old('postal_code', $deliveryAddress->postal_code) }}">
                     </div>
                     <div class="address-form__error">
                         @error('postal_code')
@@ -33,7 +33,7 @@
                 </div>
                 <div class="address-form__group-content">
                     <div class="address-form__input-inner">
-                        <input type="text" name="address" class="address-form__input" value="{{ $deliveryAddress->address }}">
+                        <input type="text" name="address" class="address-form__input" value="{{ old('address', $deliveryAddress->address) }}">
                     </div>
                     <div class="address-form__error">
                         @error('address')
@@ -48,7 +48,7 @@
                 </div>
                 <div class="address-form__group-content">
                     <div class="address-form__input-inner">
-                        <input type="text" name="building" class="address-form__input" value="{{ $deliveryAddress->building }}">
+                        <input type="text" name="building" class="address-form__input" value="{{ old('building', $deliveryAddress->building) }}">
                     </div>
                     <div class="address-form__error">
                         @error('building')

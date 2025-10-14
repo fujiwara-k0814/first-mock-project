@@ -54,4 +54,13 @@ class Item extends Model
             'user_id'
         );
     }
+
+
+    //検索項目
+    public function scopeKeywordSearch($query, $keyword)
+    {
+        if (!empty($keyword)) {
+            $query->where('name', 'like', "%{$keyword}%");
+        }
+    }
 }

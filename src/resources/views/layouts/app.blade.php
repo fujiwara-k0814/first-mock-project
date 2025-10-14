@@ -19,8 +19,10 @@
             </div>
             <div class="header__search-content">
                 <form action="/" method="get" class="header__search-form">
-                    @csrf
-                    <input type="text" name="keyword" class="header__search-input" placeholder="なにをお探しですか？">
+                    @if (request()->query('tab') === 'mylist')
+                        <input type="hidden" name="tab" value="mylist">
+                    @endif
+                    <input type="text" name="keyword" class="header__search-input" placeholder="なにをお探しですか？" value="{{ request('keyword') }}">
                 </form>
             </div>
             <nav class="header__nav">

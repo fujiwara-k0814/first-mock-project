@@ -22,3 +22,13 @@
     font-size: 46px;
     display: inline;
 }
+
+.item-favorite-button {
+    border: none;
+    background: none;
+    padding: 0;
+}
+
+.item__icon {
+    width: 40px;
+}

@@ -11,11 +11,13 @@ Laravel環境構築
  2.cp -r src/database/seeders/images/* src/storage/app/public/item_images  
  3.docker compose exec php bash  
  4.compopser install  
- 5..env.exampleファイルから.envファイルを作成し、環境変数を設定  
- 6.php artisan key:generate  
- 7.php artisan migrate  
- 8.php artisan storage:link  
- 9.php artisan db:seed  
+ 5.Stripeのダッシュボードにアクセスし、サンドボックス画面でシークレットキーを取得  
+ 6..env.exampleファイルから.envファイルを作成し、環境変数を設定  
+ 7.php artisan key:generate  
+ 8.php artisan migrate  
+ 9.php artisan storage:link  
+ 10.php artisan db:seed  
+ 11.composer require stripe/stripe-php  
   
    
 ## 使用技術

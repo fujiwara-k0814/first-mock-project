@@ -37,7 +37,7 @@
                     </div>
                     <div class="register-form__error">
                         @error('email')
-                            {{ $message }}
+                            {!! nl2br(e($message)) !!}
                         @enderror
                     </div>
                 </div>
@@ -74,6 +74,7 @@
             </div>
             <button type="submit" class="register-form__button">登録する</button>
         </form>
+        <a href="/login" class="login-link__button">ログインはこちら</a>
     </div>
 </div>
 @endsection

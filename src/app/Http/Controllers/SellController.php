@@ -25,15 +25,15 @@ class SellController extends Controller
     public function store(ExhibitionRequest $request)
     {
         if (!$request->has('action')) {
-            if (!$request->file('image')) {
+            if (!$request->file('image_path')) {
                 return redirect('/sell')->withInput();
             }
 
 
-            $imagePath = $request->file('image')->store('item_images', 'public');
+            $imagePath = $request->file('image_path')->store('item_images', 'public');
 
-            session(['item_image' => "storage/$imagePath"]);
-
+            session(['item_image_path' => "storage/$imagePath"]);
+            
 
             return redirect('/sell')->withInput();
         }
@@ -48,15 +48,7 @@ class SellController extends Controller
 
         $itemInformation['condition_id'] = $request->input('condition');
 
-        if (session()->has('item_image')) {
-            $itemInformation['image_path'] = session('item_image');
-
-            session()->forget('item_image');
-        }else{
-            $imagePath = $request->file('image')->store('item_images', 'public');
-
-            $itemInformation['image_path'] = "storage/$imagePath";
-        }
+        $itemInformation['image_path'] = $request->input('image_path');
 
         $item = Item::create($itemInformation);
 
@@ -67,6 +59,9 @@ class SellController extends Controller
         $user = Auth::user();
 
         $user->sells()->create(['item_id' => $item->id]);
+
+
+        session()->forget('item_image_path');
 
 
         return redirect('/mypage');

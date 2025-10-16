@@ -44,8 +44,7 @@ Route::middleware('auth')->group(function(){
     Route::get('/mypage/profile', [MypageController::class, 'create']);
     Route::post('/mypage/profile', [MypageController::class, 'store']);
     Route::post('/item/{item_id}/comment', [CommentController::class, 'store']);
-    Route::post('/item/{item_id}/like', [LikeController::class, 'store']);
-    Route::delete('/item/{item_id}/like', [LikeController::class, 'destroy']);
+    Route::post('/item/{item_id}/like', [LikeController::class, 'update']);
 });
 
 

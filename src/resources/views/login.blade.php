@@ -13,8 +13,8 @@
         <form action="/login" method="post" class="login-form">
             @csrf
             <div class="login-form__group">
-                <div class="login-form__group-title">
-                    <span class="login-form__title">メールアドレス</span>
+                <div class="login-form__group-label">
+                    <span class="login-form__label">メールアドレス</span>
                 </div>
                 <div class="login-form__group-content">
                     <div class="login-form__input-inner">
@@ -28,8 +28,8 @@
                 </div>
             </div>
             <div class="login-form__group">
-                <div class="login-form__group-title">
-                    <span class="login-form__title">パスワード</span>
+                <div class="login-form__group-label">
+                    <span class="login-form__label">パスワード</span>
                 </div>
                 <div class="login-form__group-content">
                     <div class="login-form__input-inner">
@@ -44,7 +44,9 @@
             </div>
             <button type="submit" class="login-form__button">ログインする</button>
         </form>
-        <a href="/register" class="reister-link__button">会員登録はこちら</a>
+        <div class="register-link__button-content">
+            <a href="/register" class="register-link__button">会員登録はこちら</a>
+        </div>
     </div>
 </div>
 @endsection

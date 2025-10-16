@@ -1,5 +1,6 @@
 .header {
     max-width: 1540px;
+    height: 65px;
     background-color: black;
 }
 
@@ -10,9 +11,12 @@
     margin: 0 auto;
     padding: 0 40px;
     width: 100%;
+    height: 100%;
 }
 
 .header-logo__content {
+    display: flex;
+    align-items: center;
     width: 30%;
     height: 100%;
 }

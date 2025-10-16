@@ -17,6 +17,8 @@ class FirstLoginRedirect
      */
     public function handle(Request $request, Closure $next)
     {
+        session()->forget('profile_image_path');
+        
         $user = Auth::user();
 
         if ($user && !$user->delivery_address) {

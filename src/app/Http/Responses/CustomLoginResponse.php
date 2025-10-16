@@ -12,7 +12,7 @@ class CustomLoginResponse implements LoginResponse
         $user = Auth::user();
 
         if ($user->delivery_address) {
-            return redirect()->intended('/');
+            return redirect()->intended('/?tab=mylist');
         }else{
             return redirect('/mypage/profile');
         }

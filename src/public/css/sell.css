@@ -1,3 +1,294 @@
+.sell__content {
+    max-width: 1540px;
+}
+
+.sell__heading {
+    margin-top: 30px;
+}
+
+.sell__title {
+    text-align: center;
+}
+
+.sell-form {
+    width: 40%;
+    margin: 0 auto;
+    padding-top: 20px;
+}
+
+.sell-image__content {
+    height: 200px;
+}
+
+.sell-image__label {
+    font-weight: 600;
+    font-size: 18px;
+}
+
+.sell-image__inner {
+    border: 1px dotted black;
+    height: 60%;
+    border-radius: 5px;
+    position: relative;
+}
+
+.sell-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.sell-select-label__wrapper {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.sell-select__label {
+    cursor: pointer;
+    border: 2px solid #ff5555;
+    padding: 5px 15px;
+    color: #ff5555;
+    font-weight: 500;
+    border-radius: 10px;
+}
+
 .sell-image__select {
     display: none;
+}
+
+.sell-form__error {
+    font-size: 16px;
+    color: red;
+}
+
+.sell-detail__heading {
+    border-bottom: 1px solid #5f5f5f;
+}
+
+.sell-detail__title {
+    display: inline;
+    color: #5f5f5f;
+}
+
+.sell-detail__category {
+    margin-top: 20px;
+}
+
+.sell-category__label {
+    font-weight: 600;
+    font-size: 18px;
+}
+
+.sell-category__content {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px 10px;
+    justify-content: flex-start;
+    align-items: flex-start;
+    margin: 20px 0 20px 20px;
+}
+
+.category-type {
+    display: none;
+}
+
+.category-label {
+    cursor: pointer;
+    border: 2px solid #ff5555;
+    padding: 0 10px;
+    color: #ff5555;
+    border-radius: 20px;
+}
+
+.category-type:checked + 
+.category-label {
+    color: white;
+    background-color: #ff5555;
+}
+
+.sell-detail__condition {
+    padding-top: 15px;
+}
+
+.sell-condition__label {
+    font-weight: 600;
+    font-size: 18px;
+}
+
+.sell-condition__select__content {
+    margin-top: 10px;
+    height: 35px;
+}
+
+.select-condition,
+.select-condition::picker(select) {
+    appearance: base-select;
+}
+
+.select-condition {
+    width: 100%;
+    height: 100%;
+    color: #5f5f5f;
+    font-weight: 600;
+    border: 1px solid #5f5f5f;
+    cursor: pointer;
+    padding-left: 15px;
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+}
+
+.select-condition{
+    &::picker-icon {
+        content: "▼";
+        color: #5f5f5f;
+        font-size: 14px;
+    }
+}
+
+.condition-option {
+    background-color: #636769;
+    color: white;
+}
+
+.condition-option:checked {
+    background-color: #5599eb;
+}
+
+.condition-option:hover,
+option:focus-visible {
+    background-color: #5599eb;
+    outline: none;
+}
+
+.sell-item__description-content {
+    padding-top: 50px;
+}
+
+.sell-description__heading {
+    border-bottom: 1px solid #5f5f5f;
+}
+
+.sell-description__title {
+    display: inline;
+    color: #5f5f5f;
+}
+
+.sell-description__name {
+    margin-top: 20px;
+}
+
+.sell-name__label {
+    font-weight: 600;
+    font-size: 18px;
+}
+
+.sell-name__content {
+    height: 30px;
+    margin-top: 5px;
+}
+
+.sell-name {
+    width: 100%;
+    height: 100%;
+    border-radius: 3px;
+    border: 1px solid #5f5f5f;
+    font-size: 16px;
+    text-indent: 15px;
+}
+
+.sell-description__brand {
+    margin-top: 20px;
+}
+
+.sell-brand__label {
+    font-weight: 600;
+    font-size: 18px;
+}
+
+.sell-brand__content {
+    height: 30px;
+    margin-top: 5px;
+}
+
+.sell-brand {
+    width: 100%;
+    height: 100%;
+    border-radius: 3px;
+    border: 1px solid #5f5f5f;
+    font-size: 16px;
+    text-indent: 15px;
+}
+
+.sell-item-description {
+    margin-top: 20px;
+}
+
+.sell-description__label {
+    font-weight: 600;
+    font-size: 18px;
+}
+
+.sell-description__content {
+    height: 90px;
+    margin-top: 5px;
+}
+
+.sell-description {
+    width: 100%;
+    height: 100%;
+    border-radius: 3px;
+    border: 1px solid #5f5f5f;
+    font-size: 14px;
+}
+
+.sell-description__price {
+    margin-top: 20px;
+}
+
+.sell-price__label {
+    font-weight: 600;
+    font-size: 18px;
+}
+
+.sell-price__content {
+    height: 30px;
+    margin-top: 5px;
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.sell-price {
+    width: 100%;
+    height: 100%;
+    border-radius: 3px;
+    border: 1px solid #5f5f5f;
+    font-size: 16px;
+    text-indent: 30px;
+}
+
+.yen-mark {
+    position: absolute;
+    left: 13px;
+    font-weight: 600;
+}
+
+.sell-form__button {
+    margin: 100px 0;
+    width: 100%;
+    background-color: #ff5555;
+    border: 1px solid #ff5555;
+    border-radius: 5px;
+    font-size: 20px;
+    color: white;
+    padding: 10px 0;
+    cursor: pointer;
+    font-weight: 600;
 }

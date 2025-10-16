@@ -25,13 +25,13 @@ class ExhibitionRequest extends FormRequest
     {
         if (!$this->input('action')) {
             return [
-                'image' => ['file', 'mimes:jpeg,png'],
+                'image_path' => ['file', 'mimes:jpeg,png'],
             ];
         }
 
         if ($this->input('action')) {
             return [
-                'image' => ['required', 'regex:/\.(jpeg|png)$/i'],
+                'image_path' => ['required', 'regex:/\.(jpeg|png)$/i'],
                 'category' => ['required'],
                 'condition' => ['required'],
                 'name' => ['required'],
@@ -44,10 +44,10 @@ class ExhibitionRequest extends FormRequest
     public function messages()
     {
         return [
-            'image.file' => '画像はファイルを指定してください',
-            'image.mimes' => '画像の拡張子は.jpegまたは.pngを指定してください',
-            'image.regex' => '画像の拡張子は.jpegまたは.pngを指定してください',
-            'image.required' => '画像を選択してください',
+            'image_path.file' => '画像はファイルを指定してください',
+            'image_path.mimes' => '画像の拡張子は.jpegまたは.pngを指定してください',
+            'image_path.regex' => '画像の拡張子は.jpegまたは.pngを指定してください',
+            'image_path.required' => '画像を選択してください',
             'category.required' => 'カテゴリーを選択してください',
             'condition.required' => '商品状態を選択してください',
             'name.required' => '商品名を入力してください',

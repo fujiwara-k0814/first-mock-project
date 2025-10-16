@@ -25,13 +25,18 @@
                         <div class="item-icon__inner">
                             <form action="/item/{{ $item->id }}/like" method="post" class="item-favorite-form">
                                 @csrf
-                                @if (Auth::check() && $user->likes->contains('item_id', $item->id))
-                                    @method('DELETE')
-                                    <button type="submit" class="item-favorite-button">
-                                        <img src="/images/liked_icon.svg" alt="いいね画像" class="item__icon">
-                                    </button>
+                                @if (Auth::check())
+                                    @if ($user->likes()->where('item_id', $item->id)->exists())
+                                        <button type="submit" class="item-favorite-button">
+                                            <img src="/images/liked_icon.svg" alt="いいね画像" class="item__icon">
+                                        </button>
+                                    @else
+                                        <button type="submit" class="item-favorite-button">
+                                            <img src="/images/like_icon.svg" alt="いいね画像" class="item__icon">
+                                        </button>
+                                    @endif
                                 @else
-                                    <button type="submit" class="item-favorite-button">
+                                    <button type="button" class="item-favorite-button">
                                         <img src="/images/like_icon.svg" alt="いいね画像" class="item__icon">
                                     </button>
                                 @endif

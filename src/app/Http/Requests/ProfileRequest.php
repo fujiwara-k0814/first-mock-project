@@ -25,14 +25,14 @@ class ProfileRequest extends FormRequest
     {
         if (!$this->input('action')) {
             return [
-                'image' => ['file', 'mimes:jpeg,png'],
+                'image_path' => ['file', 'mimes:jpeg,png'],
             ];
         }
 
         if ($this->input('action')) {
-            if ($this->input('image')) {
+            if ($this->input('image_path')) {
                 return [
-                    'image' => ['regex:/\.(jpeg|png)$/i'],
+                    'image_path' => ['regex:/\.(jpeg|png)$/i'],
                 ];
             }
             return [
@@ -46,9 +46,9 @@ class ProfileRequest extends FormRequest
     public function messages()
     {
         return [
-            'image.file' => '画像はファイルを指定してください',
-            'image.mimes' => '画像の拡張子は.jpegまたは.pngを指定してください',
-            'image.regex' => '画像の拡張子は.jpegまたは.pngを指定してください',
+            'image_path.file' => '画像はファイルを指定してください',
+            'image_path.mimes' => '画像の拡張子は.jpegまたは.pngを指定してください',
+            'image_path.regex' => '画像の拡張子は.jpegまたは.pngを指定してください',
             'postal_code.regex' => '郵便番号は「123-4567」の形式で入力してください'
         ];
     }

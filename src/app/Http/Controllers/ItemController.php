@@ -29,8 +29,11 @@ class ItemController extends Controller
             }
         }
 
-        
-        session()->forget('item_image');
+
+        session()->forget('profile_image_path');
+
+
+        session()->forget('item_image_path');
 
 
         return view('index', compact('items'));

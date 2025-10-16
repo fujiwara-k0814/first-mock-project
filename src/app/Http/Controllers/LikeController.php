@@ -7,22 +7,16 @@ use Illuminate\Support\Facades\Auth;
 
 class LikeController extends Controller
 {
-    public function store($item_id)
+    public function update($item_id)
     {
         $user = Auth::user();
 
-        $user->likes()->create(['item_id' => $item_id]);
-
-
-        return redirect("/item/$item_id");
-    }
-
-    public function destroy($item_id)
-    {
-        $user = Auth::user();
-
-        $user->likes()->where('item_id', $item_id)->delete();
-
+        if ($user->likes()->where('item_id', $item_id)->exists()) {
+            $user->likes()->where('item_id', $item_id)->delete();
+        }else{
+            $user->likes()->create(['item_id' => $item_id]);
+        }
+        
 
         return redirect("/item/$item_id");
     }

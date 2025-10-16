@@ -20,28 +20,26 @@ class MypageController extends Controller
     public function store(ProfileRequest $request)
     {
         if (!$request->has('action')) {
-            if (!$request->file('image')) {
+            if (!$request->file('image_path')) {
                 return redirect('/mypage/profile')->withInput();
             }
 
 
-            $imagePath = $request->file('image')->store('profile_images', 'public');
+            $imagePath = $request->file('image_path')->store('profile_images', 'public');
 
-            session(['profile_image' => "storage/$imagePath"]);
+            session(['profile_image_path' => "storage/$imagePath"]);
 
             return redirect('/mypage/profile')->withInput();
         }
 
+
+        $user = Auth::user();
 
         $userAddress = $request->only([
             'postal_code',
             'address',
             'building',
         ]);
-
-
-        $user = Auth::user();
-
 
         if ($user->delivery_address) {
             $user->delivery_address->update($userAddress);
@@ -51,25 +49,16 @@ class MypageController extends Controller
             $redirectPath = '/';
         }
 
-
-        if (session()->has('profile_image')) {
-            $user->image_path = session('profile_image');
-
-            session()->forget('profile_image');
-        }else{
-            if ($request->file('image')) {
-                $imagePath = $request->file('image')->store('profile_images', 'public');
-
-                $user->image_path = "storage/$imagePath";
-            }
-        }
-
+        $user->image_path = $request->input('image_path');
 
         $user->name = $request->input('name');
 
         $user->fill($userAddress);
 
         $user->save();
+
+
+        session()->forget('profile_image_path');
 
 
         return redirect($redirectPath);
@@ -87,10 +76,10 @@ class MypageController extends Controller
         }
 
 
-        session()->forget('profile_image');
+        session()->forget('profile_image_path');
 
 
-        session()->forget('item_image');
+        session()->forget('item_image_path');
 
 
         return view('mypage', compact('user', 'items'));

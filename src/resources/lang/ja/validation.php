@@ -150,11 +150,11 @@ return [
         'name' => 'お名前',
         'email' => 'メールアドレス',
         'password' => 'パスワード',
+        'password_confirmation' => '確認用パスワード',
         'comment' => 'コメント',
         'postal_code' => '郵便番号',
         'address' => '住所',
         'category' => 'カテゴリー',
         'condition' => '商品状態',
-
     ],
 ];

@@ -13,29 +13,27 @@
     <header class="header">
         <div class="header__inner">
             <div class="header-logo__content">
-                <a href="/" class="header-logo__home-link">
-                    <img src="/images/logo.svg">
+                <a href="/" class="header-logo__link">
+                    <img src="/images/logo.svg" alt="ロゴ画像" class="header-logo">
                 </a>
             </div>
             @if (!in_array(Route::currentRouteName(), ['login', 'register']))
-                <div class="header__search-content">
-                    <form action="/" method="get" class="header__search-form">
-                        @if (request()->query('tab') === 'mylist')
-                            <input type="hidden" name="tab" value="mylist">
-                        @endif
-                        <input type="text" name="keyword" class="header__search-input" placeholder="なにをお探しですか？" value="{{ request('keyword') }}">
-                    </form>
-                </div>
+                <form action="/" method="get" class="header__search-form">
+                    @if (request()->query('tab') === 'mylist')
+                        <input type="hidden" name="tab" value="mylist">
+                    @endif
+                    <input type="text" name="keyword" class="header__search-input" placeholder="なにをお探しですか？" value="{{ request('keyword') }}">
+                </form>
                 <nav class="header__nav">
                     <ul class="header__nav-list">
                         <li>
                             @if (Auth::check())
                                 <form action="/logout" method="post">
                                     @csrf
-                                    <button type="submit" class="header__logout-button">ログアウト</button>
+                                    <button type="submit" class="header__nav-button">ログアウト</button>
                                 </form>
                             @else
-                                <a href="/login" class="header__login-button">ログイン</a>
+                                <a href="/login" class="header__nav-button">ログイン</a>
                             @endif
                         </li>
                         <li>

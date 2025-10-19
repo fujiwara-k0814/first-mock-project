@@ -5,16 +5,16 @@
 .mypage-image__content {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    width: 75%;
-    margin: 0 auto;
+    justify-content: center;
+    width: 100%;
     padding: 60px 50px;
 }
 
 .mypage-image__wrapper {
     display: flex;
     align-items: center;
-    width: 65%;
+    max-width: 685px;
+    width: 100%;
     margin-left: 70px;
 }
 
@@ -79,20 +79,21 @@
 
 .sold-tab,
 .sold-tab-active {
-    margin-left: 150px;
+    margin-left: clamp(10px, 12vw, 150px);
 }
 
 .purchased-tab,
 .purchased-tab-active {
-    margin-left: 80px;
+    margin-left: clamp(10px, 12vw, 80px);
 }
 
 
 .item-list__inner {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(auto-fill, 322px);
+    justify-content: center;
     grid-auto-rows: 350px;
-    gap: 50px;
-    padding: 55px 50px;
+    gap: clamp(10px, 5vw, 45px);
+    padding: 60px 40px;
     width: 100%;
 }

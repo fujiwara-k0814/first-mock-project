@@ -30,19 +30,20 @@
 
 .recommend-tab,
 .recommend-tab-active {
-    margin-left: 200px;
+    margin-left: clamp(10px, 15vw, 200px);
 }
 
 .like-tab,
 .like-tab-active {
-    margin-left: 100px;
+    margin-left: clamp(10px, 15vw, 100px);
 }
 
 .item-list__inner {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(auto-fill, 322px);
+    justify-content: center;
     grid-auto-rows: 350px;
-    gap: 50px;
-    padding: 55px 50px;
+    gap: clamp(10px, 5vw, 45px);
+    padding: 60px 40px;
     width: 100%;
 }

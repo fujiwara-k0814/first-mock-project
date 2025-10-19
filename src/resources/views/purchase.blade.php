@@ -9,9 +9,9 @@
     <form action="/purchase/{{ $item->id }}" method="post" class="purchase-form">
         @csrf
         <div class="purchase-item__content">
-            <div class="item___content">
+            <div class="item__content">
                 <div class="item-image__inner">
-                    <img src="{{ asset($item->image_path) }}" alt="商品画像">
+                    <img src="{{ asset($item->image_path) }}" alt="商品画像" class="item-image">
                 </div>
                 <div class="item__heading">
                     <h1 class="item-name">{{ $item->name }}</h1>
@@ -22,32 +22,28 @@
                 </div>
             </div>
             <div class="item-payment__content">
-                <div class="item-payment__label-content">
-                    <span class="item-payment__label">支払い方法</span>
-                </div>
-                <div class="item-payment__select-content">
-                    <select name="payment" class="item-payment__select" onchange="this.form.submit()">
-                        <option value="" hidden>選択してください</option>
-                        <option value="konbini"{{ session('payment') == 'konbini' ? 'selected' : '' }}>コンビニ払い</option>
-                        <option value="card"{{ session('payment') == 'card' ? 'selected' : '' }}>カード支払い</option>
-                    </select>
-                    <div class="item-payment-form__error">
-                        @error('payment')
-                            {{ $message }}
-                        @enderror
-                    </div>
+                <label for="payment" class="item-payment__label">支払い方法</label>
+                <select name="payment" id="payment" class="item-payment__select" onchange="this.form.submit()">
+                    <option value="" hidden>選択してください</option>
+                    <option class="payment-option" value="konbini"{{ session('payment') == 'konbini' ? 'selected' : '' }}>コンビニ払い</option>
+                    <option class="payment-option" value="card"{{ session('payment') == 'card' ? 'selected' : '' }}>カード支払い</option>
+                </select>
+                <div class="item-payment__error">
+                    @error('payment')
+                        {{ $message }}
+                    @enderror
                 </div>
             </div>
             <div class="item-delivery__content">
-                <div class="item-delivery__label__content">
+                <div class="item-delivery__label-wrapper">
                     <span class="item-delivery__label">配送先</span>
-                    <a href="/purchase/address/{{ $item->id }}" class="item-delivery__change">変更する</a>
+                    <a href="/purchase/address/{{ $item->id }}" class="delivery-address__link">変更する</a>
                 </div>
-                <div class="item-delivery__content">
-                    <div class="delivery-postal-code__content">
-                        <span class="postal-mark">〒</span>
-                        <span class="postal-code">{{ $deliveryAddress->postal_code }}</span>
-                    </div>
+                <div class="postal-code__content">
+                    <span class="postal-mark">〒</span>
+                    <span class="postal-code">{{ $deliveryAddress->postal_code }}</span>
+                </div>
+                <div class="address__content">
                     <span class="delivery-address">{{ $deliveryAddress->address }}</span>
                     <span class="delivery-building">{{ $deliveryAddress->building }}</span>
                 </div>
@@ -55,16 +51,16 @@
         </div>
         <div class="purchase-payment__content">
             <table class="payment-table">
-                <tr>
-                    <th>商品代金</th>
-                    <td>{{ $item->price }}</td>
+                <tr class="table-row">
+                    <th class="table-header">商品代金</th>
+                    <td class="table-data-price"><span class="table-yen-mark">¥</span>{{ number_format($item->price) }}</td>
                 </tr>
-                <tr>
-                    <th>支払い方法</th>
+                <tr class="table-row">
+                    <th class="table-header">支払い方法</th>
                     @php
                         const PAYMENT_LABEL = ['konbini' => 'コンビニ払い', 'card' => 'カード支払い'];
                     @endphp
-                    <td>{{ PAYMENT_LABEL[session('payment')] ?? '' }}</td>
+                    <td class="table-data-payment">{{ PAYMENT_LABEL[session('payment')] ?? '' }}</td>
                 </tr>
             </table>
             <input type="hidden" name="delivery_address_id" value="{{ $deliveryAddress->id }}">

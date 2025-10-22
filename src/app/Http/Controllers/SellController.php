@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\Condition;
 use App\Models\Item;
@@ -24,7 +23,9 @@ class SellController extends Controller
 
     public function store(ExhibitionRequest $request)
     {
+        //画像選択時のみフォーム処理(button nameでのaction判定)
         if (!$request->has('action')) {
+            //ブラウザバック時エラー対策
             if (!$request->file('image_path')) {
                 return redirect('/sell')->withInput();
             }
@@ -37,7 +38,10 @@ class SellController extends Controller
 
             return redirect('/sell')->withInput();
         }
+
+
         
+        //全体フォーム処理
 
         $itemInformation = $request->only([
             'name',
@@ -64,6 +68,6 @@ class SellController extends Controller
         session()->forget('item_image_path');
 
 
-        return redirect('/mypage');
+        return redirect('/');
     }
 }

@@ -59,10 +59,18 @@
                 </div>
             </div>
         </div>
-        @if ($item->delivery_address_id)
-            <span class="purchase-link">購入手続きへ</span>
+        @if (Auth::check())
+            @if (!$item->delivery_address_id)
+                @if ($user->sells->where('item_id', $item->id)->isEmpty())
+                    <a href="/purchase/{{ $item->id }}" class="purchase-link-active">購入手続きへ</a>
+                @else
+                    <span class="purchase-link">購入手続きへ</span>
+                @endif
+            @else
+                <span class="purchase-link">購入手続きへ</span>
+            @endif
         @else
-            <a href="/purchase/{{ $item->id }}" class="purchase-link-active">購入手続きへ</a>
+            <span class="purchase-link">購入手続きへ</span>
         @endif
         <h2 class="item-description__title">商品説明</h2>
         <span class="item-description">{{ $item->description }}</span>

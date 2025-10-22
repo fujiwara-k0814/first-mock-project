@@ -3,7 +3,8 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Str;
+use App\Models\User;
+use App\Models\DeliveryAddress;
 
 class UserFactory extends Factory
 {
@@ -14,13 +15,34 @@ class UserFactory extends Factory
      */
     public function definition()
     {
+        $faker = \Faker\Factory::create('ja_JP');
+
+        $isVerifyComplete = $faker->boolean(); //true:済 false:未
+
         return [
-            'name' => $this->faker->name(),
-            'email' => $this->faker->unique()->safeEmail(),
-            'email_verified_at' => now(),
+            'name' => $faker->name(),
+            'email' => $faker->unique()->safeEmail(),
+            'email_verified_at' => $isVerifyComplete ? now() : null,
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-            'remember_token' => Str::random(10),
+            'postal_code' => $isVerifyComplete ? $faker->postcode() : null,
+            'address' => $isVerifyComplete ? $faker->prefecture() . $faker->city() . $faker->streetAddress() : null, 
+            'building' => $isVerifyComplete ? $faker->randomElement(['', $faker->secondaryAddress()]) : null,
         ];
+    }
+
+    //delivery_address_tableとの連携
+    public function configure()
+    {
+        return $this->afterCreating(function (User $user) {
+            if ($user->postal_code && $user->address) {
+                DeliveryAddress::create([
+                    'user_id' => $user->id,
+                    'postal_code' => $user->postal_code,
+                    'address' => $user->address,
+                    'building' => $user->building,
+                ]);
+            }
+        });
     }
 
     /**

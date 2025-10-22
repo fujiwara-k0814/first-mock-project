@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class LikeController extends Controller
@@ -11,6 +10,7 @@ class LikeController extends Controller
     {
         $user = Auth::user();
 
+        //いいねの有無で生成削除(ルート共通化)
         if ($user->likes()->where('item_id', $item_id)->exists()) {
             $user->likes()->where('item_id', $item_id)->delete();
         }else{

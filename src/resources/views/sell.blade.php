@@ -32,8 +32,8 @@
         <label class="sell-category__label">カテゴリー</label>
         <div class="sell-category__content">
             @foreach ($categories as $category)
-                <label for="category-{{ $category->id }}" class="category-label">{{ $category->name }}</label>
                 <input type="checkbox" name="category[]" id="category-{{ $category->id }}" class="category-type" value="{{ $category->id }}"{{ in_array($category->id, old('category', [])) ? 'checked' : '' }}>
+                <label for="category-{{ $category->id }}" class="category-label">{{ $category->name }}</label>
             @endforeach
         </div>
         <div class="sell-form__error">
@@ -74,7 +74,7 @@
         </div>
         <div class="sell-description__group">
             <label for="description" class="sell-group__label">商品の説明</label>
-            <textarea name="description" id="description" class="sell-group__input--textarea">{{ old('description') }}</textarea>
+            <textarea name="description" id="description" class="sell-group__input sell-group__input--textarea">{{ old('description') }}</textarea>
             <div class="sell-form__error">
                 @error('description')
                     {{ $message }}
@@ -85,7 +85,7 @@
             <label for="price" class="sell-group__label">販売価格</label>
             <div class="sell-group__wrapper">
                 <span class="yen-mark">¥</span>
-                <input type="text" name="price" id="price" class="sell-group__input--price" value="{{ old('price') }}">
+                <input type="text" name="price" id="price" class="sell-group__input sell-group__input--price" value="{{ old('price') }}">
             </div>
             <div class="sell-form__error">
                 @error('price')

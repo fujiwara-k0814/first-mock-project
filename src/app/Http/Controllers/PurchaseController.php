@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Item;
 use Illuminate\Support\Facades\Auth;
 use Stripe\Stripe;
@@ -26,12 +25,16 @@ class PurchaseController extends Controller
 
     public function store(PurchaseRequest $request, $item_id)
     {
+        //支払い方法選択時のみフォーム処理(button nameでのaction判定)
         if (!$request->has('action')) {
             session(['payment' => $request->input('payment')]);
 
             return redirect("/purchase/$item_id")->withInput();
         }
+
+
         
+        //全体フォーム処理
 
         //DB処理
         $item = Item::find($item_id);

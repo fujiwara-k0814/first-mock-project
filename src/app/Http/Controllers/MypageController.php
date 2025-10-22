@@ -19,7 +19,9 @@ class MypageController extends Controller
     
     public function store(ProfileRequest $request)
     {
+        //画像選択時のみフォーム処理(button nameでのaction判定)
         if (!$request->has('action')) {
+            //ブラウザバック時エラー対策
             if (!$request->file('image_path')) {
                 return redirect('/mypage/profile')->withInput();
             }
@@ -32,6 +34,9 @@ class MypageController extends Controller
             return redirect('/mypage/profile')->withInput();
         }
 
+
+
+        //全体フォーム処理
 
         $user = Auth::user();
 
@@ -46,7 +51,7 @@ class MypageController extends Controller
             $redirectPath = '/mypage';
         }else{
             $user->delivery_address()->create($userAddress);
-            $redirectPath = '/';
+            $redirectPath = '/?tab=mylist';
         }
 
         $user->image_path = $request->input('image_path');

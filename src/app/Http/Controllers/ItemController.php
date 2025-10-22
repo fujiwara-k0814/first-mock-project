@@ -12,11 +12,23 @@ class ItemController extends Controller
     public function index(Request $request)
     {
         $user = Auth::user();
+
+        //メール未認証リダイレクト
+        if ($user && !$user->hasVerifiedEmail()) {
+            return redirect('/email/verify');
+        }
+
+        //プロフィール未登録リダイレクト
+        if ($user && !$user->delivery_address) {
+            return redirect('/mypage/profile');
+        }
         
+
         if (Auth::check()) {
             if ($request->query('tab') === 'mylist') {
                 $items = $user->likedItems()->keywordSearch($request->keyword)->get();
             }else{
+                //出品アイテムid取得→除外
                 $soldItemIds = $user->soldItems()->pluck('id');
 
                 $items = Item::whereNotIn('id', $soldItemIds)->keywordSearch($request->keyword)->get();

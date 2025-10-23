@@ -36,8 +36,6 @@ Route::middleware(['auth', 'verified', 'first.login'])->group(function(){
     Route::post('/purchase/address/{item_id}', [DeliveryAddressController::class, 'update']);
     Route::get('/sell', [SellController::class, 'create']);
     Route::post('/sell', [SellController::class, 'store']);
-    Route::get('/mypage/profile', [MypageController::class, 'create']);
-    Route::post('/mypage/profile', [MypageController::class, 'store']);
     Route::post('/item/{item_id}/comment', [CommentController::class, 'store']);
     Route::post('/item/{item_id}/like', [LikeController::class, 'update']);
 });
@@ -52,7 +50,5 @@ Route::middleware('auth', 'verified')->group(function(){
 
 //メール認証操作
 Route::get('/email/verify', [VerifyEmailController::class, 'notice'])->middleware('auth')->name('verification.notice');
-
 Route::get('/email/verify/{id}/{hash}', [VerifyEmailController::class, 'verify'])->middleware(['auth', 'signed'])->name('verification.verify');
-
 Route::post('/email/verification-notification', [VerifyEmailController::class, 'send'])->middleware(['auth', 'throttle:10,1'])->name('verification.send');

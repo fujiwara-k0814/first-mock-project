@@ -28,3 +28,5 @@ Homestead.json
 .env.production
 .phpactor.json
 auth.json
+docker/mysql/data/ib_logfile1
+docker/mysql/data/*

@@ -11,7 +11,7 @@ class CommentController extends Controller
     {
         $itemComment = [
             'item_id' => $item_id,
-            'body' => $request->input('comment')
+            'body' => $request->input('body')
         ];
 
         $user = Auth::user();

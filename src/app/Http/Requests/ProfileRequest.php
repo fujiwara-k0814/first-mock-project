@@ -25,14 +25,14 @@ class ProfileRequest extends FormRequest
     {
         if (!$this->input('action')) {
             return [
-                'image_path' => ['file', 'mimes:jpeg,png'],
+                'image_path' => ['file', 'mimes:jpg,jpeg,png'],
             ];
         }
 
         if ($this->input('action')) {
             if ($this->input('image_path')) {
                 return [
-                    'image_path' => ['regex:/\.(jpeg|png)$/i'],
+                    'image_path' => ['regex:/\.(jpg|jpeg|png)$/i'],
                 ];
             }
             return [

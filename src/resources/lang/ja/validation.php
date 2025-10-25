@@ -151,7 +151,7 @@ return [
         'email' => 'メールアドレス',
         'password' => 'パスワード',
         'password_confirmation' => '確認用パスワード',
-        'comment' => 'コメント',
+        'body' => 'コメント',
         'postal_code' => '郵便番号',
         'address' => '住所',
         'category' => 'カテゴリー',

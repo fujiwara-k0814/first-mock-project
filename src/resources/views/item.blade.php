@@ -31,31 +31,31 @@
         <div class="item-icon__content">
             <div class="item-icon__group">
                 <div class="item-icon__inner">
-                    <form action="/item/{{ $item->id }}/like" method="post" class="item-favorite-form">
+                    <form action="/item/{{ $item->id }}/like" method="post" class="item-like-form">
                         @csrf
                         @if (Auth::check())
                             @if ($user->likes()->where('item_id', $item->id)->exists())
-                                <button type="submit" class="item-favorite-button-active">
+                                <button type="submit" class="item-like-button-active">
                                     <img src="/images/liked_icon.svg" alt="いいね画像" class="item__icon">
                                 </button>
                             @else
-                                <button type="submit" class="item-favorite-button-active">
+                                <button type="submit" class="item-like-button-active">
                                     <img src="/images/like_icon.svg" alt="いいね画像" class="item__icon">
                                 </button>
                             @endif
                         @else
-                            <button type="button" class="item-favorite-button">
+                            <button type="button" class="item-like-button">
                                 <img src="/images/like_icon.svg" alt="いいね画像" class="item__icon">
                             </button>
                         @endif
                     </form>
-                    <span class="item__count">{{ $item->likes_count }}</span>
+                    <span class="like__count">{{ $item->likes_count }}</span>
                 </div>
             </div>
             <div class="item-icon__group">
                 <div class="item-icon__inner">
                     <img src="/images/speech_balloon_icon.svg" alt="コメント画像" class="item__icon">
-                    <span class="item__count">{{ $item->comments_count }}</span>
+                    <span class="comment__count">{{ $item->comments_count }}</span>
                 </div>
             </div>
         </div>
@@ -113,9 +113,9 @@
             <label for="comment" class="comment-form__label">商品へのコメント</label>
             <form action="/item/{{ $item->id }}/comment" method="post" class="comment-form">
                 @csrf
-                <textarea name="comment" id="comment" class="comment">{{ old('comment') }}</textarea>
+                <textarea name="body" id="comment" class="comment-body">{{ old('comment') }}</textarea>
                 <div class="comment-form__error">
-                    @error('comment')
+                    @error('body')
                         {{ $message }}
                     @enderror
                 </div>

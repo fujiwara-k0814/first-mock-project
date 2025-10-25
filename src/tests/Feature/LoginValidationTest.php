@@ -47,9 +47,7 @@ class LoginValidationTest extends TestCase
 
     public function testUserCannotLoginWithWrongCredentials()
     {
-        //仮ユーザー登録
         User::factory()->create([
-            'name' => 'test',
             'email' => 'wrong_test@example.com',
             'password' => bcrypt('wrong_password'),
         ]);
@@ -69,9 +67,7 @@ class LoginValidationTest extends TestCase
 
     public function testUserCanLoginWithValidCredentials()
     {
-        //仮ユーザー登録
         $user = User::factory()->create([
-            'name' => 'test',
             'email' => 'test@example.com',
             'password' => bcrypt('password'),
         ]);

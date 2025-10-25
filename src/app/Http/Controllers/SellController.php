@@ -34,7 +34,6 @@ class SellController extends Controller
             $imagePath = $request->file('image_path')->store('item_images', 'public');
 
             session(['item_image_path' => "storage/$imagePath"]);
-            
 
             return redirect('/sell')->withInput();
         }

@@ -58,9 +58,9 @@
                 <tr class="table-row">
                     <th class="table-header">支払い方法</th>
                     @php
-                        const PAYMENT_LABEL = ['konbini' => 'コンビニ払い', 'card' => 'カード支払い'];
+                        $paymentLabel = ['konbini' => 'コンビニ払い', 'card' => 'カード支払い'];
                     @endphp
-                    <td class="table-data-payment">{{ PAYMENT_LABEL[session('payment')] ?? '' }}</td>
+                    <td class="table-data-payment">{{ $paymentLabel[session('payment')] ?? '' }}</td>
                 </tr>
             </table>
             <input type="hidden" name="delivery_address_id" value="{{ $deliveryAddress->id }}">

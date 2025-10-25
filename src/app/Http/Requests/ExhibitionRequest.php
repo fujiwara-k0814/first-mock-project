@@ -25,13 +25,13 @@ class ExhibitionRequest extends FormRequest
     {
         if (!$this->input('action')) {
             return [
-                'image_path' => ['file', 'mimes:jpeg,png'],
+                'image_path' => ['file', 'mimes:jpg,jpeg,png'],
             ];
         }
 
         if ($this->input('action')) {
             return [
-                'image_path' => ['required', 'regex:/\.(jpeg|png)$/i'],
+                'image_path' => ['required', 'regex:/\.(jpg|jpeg|png)$/i'],
                 'category' => ['required'],
                 'condition' => ['required'],
                 'name' => ['required'],

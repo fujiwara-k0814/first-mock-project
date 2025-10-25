@@ -48,7 +48,10 @@ Route::middleware('auth', 'verified')->group(function(){
 });
 
 
-//メール認証操作
-Route::get('/email/verify', [VerifyEmailController::class, 'notice'])->middleware('auth')->name('verification.notice');
-Route::get('/email/verify/{id}/{hash}', [VerifyEmailController::class, 'verify'])->middleware(['auth', 'signed'])->name('verification.verify');
-Route::post('/email/verification-notification', [VerifyEmailController::class, 'send'])->middleware(['auth', 'throttle:10,1'])->name('verification.send');
+//メール認証操作(システム制約でname付与)
+Route::get('/email/verify', [VerifyEmailController::class, 'notice'])
+    ->middleware('auth')
+    ->name('verification.notice');
+Route::post('/email/verification-notification', [VerifyEmailController::class, 'send'])
+    ->middleware(['auth', 'throttle:10,1'])
+    ->name('verification.send');

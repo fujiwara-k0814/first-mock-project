@@ -17,20 +17,11 @@ class LogoutFlowTest extends TestCase
      */
     public function testUserCanLogoutSuccessfully()
     {
-        //仮ユーザー登録
         /** @var \App\Models\User $user */
-        $user = User::factory()->create([
-            'name' => 'test',
-            'email' => 'test@example.com',
-            'password' => bcrypt('password'),
-        ]);
+        $user = User::factory()->create();
 
-        $this->actingAs($user);
+        $this->actingAs($user)->assertAuthenticated();
 
-        $this->assertAuthenticated();
-
-        $this->post('/logout');
-
-        $this->assertGuest();
+        $this->post('/logout')->assertGuest();
     }
 }

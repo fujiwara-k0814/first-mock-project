@@ -3,20 +3,77 @@
 namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
+use Database\Seeders\CategoriesTableSeeder;
+use Database\Seeders\ConditionsTableSeeder;
+use Database\Seeders\ItemsTableSeeder;
+use App\Models\Item;
+use App\Models\User;
 
 class PaymentMethodSelectionFlowTest extends TestCase
 {
+    use RefreshDatabase;
+
     /**
      * A basic feature test example.
      *
      * @return void
      */
-    public function testPayment()
+    public function testSelectedPaymentMethodIsReflectedOnPurchaseConfirmationPage()
     {
-        $response = $this->get('/');
+        /** @var \App\Models\User $user */
+        //初期登録処理
+        $user = User::factory()->create([
+            'email_verified_at' => now(),
+            'postal_code' => '123-4567',
+            'address' => 'address',
+        ]);
 
-        $response->assertStatus(200);
+        $this->seed(CategoriesTableSeeder::class);
+        $this->seed(ConditionsTableSeeder::class);
+        $this->seed(ItemsTableSeeder::class);
+
+        $item = Item::find(1);
+
+        $response = $this->actingAs($user)->get("/purchase/{$item->id}")->assertStatus(200);
+
+
+        //支払い方法初期状態確認
+        $this->assertMatchesRegularExpression(
+            '/<option[^>]*value="konbini"[^>]*>コンビニ払い<\/option>/',
+            $response->getContent()
+        );
+
+        $this->assertMatchesRegularExpression(
+            '/<option[^>]*value="card"[^>]*>カード支払い<\/option>/',
+            $response->getContent()
+        );
+
+        $this->assertMatchesRegularExpression(
+            '/<td class="table-data-payment">\s*<\/td>/',
+            $response->getContent()
+        );
+
+
+        $response = $this->followingRedirects()->post("/purchase/{$item->id}", [
+            'payment' => 'card',
+        ]);
+
+
+        //支払い方法状態確認
+        $this->assertMatchesRegularExpression(
+            '/<option[^>]*value="konbini"[^>]*>コンビニ払い<\/option>/',
+            $response->getContent()
+        );
+
+        $this->assertMatchesRegularExpression(
+            '/<option[^>]*value="card"[^>]*selected[^>]*>カード支払い<\/option>/',
+            $response->getContent()
+        );
+
+        $this->assertMatchesRegularExpression(
+            '/<td class="table-data-payment">\s*カード支払い\s*<\/td>/',
+            $response->getContent()
+        );
     }
 }

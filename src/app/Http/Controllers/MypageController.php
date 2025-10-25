@@ -79,7 +79,7 @@ class MypageController extends Controller
         }else{
             $items = $user->soldItems;
         }
-
+        
 
         session()->forget('profile_image_path');
 

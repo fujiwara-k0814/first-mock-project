@@ -2,10 +2,15 @@
 
 namespace Tests\Feature;
 
-use App\Models\Item;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
+use Database\Seeders\CategoriesTableSeeder;
+use Database\Seeders\ConditionsTableSeeder;
+use Database\Seeders\ItemsTableSeeder;
+use App\Models\Item;
+use App\Models\User;
+use App\Models\Sell;
+use App\Models\DeliveryAddress;
 
 class IndexFetchFlowTest extends TestCase
 {
@@ -16,21 +21,63 @@ class IndexFetchFlowTest extends TestCase
      *
      * @return void
      */
-    public function testIndex()
+    public function testAllItemsAreDisplayedOnIndex()
     {
-        $items = Item::all();
+        $this->seed(CategoriesTableSeeder::class);
+        $this->seed(ConditionsTableSeeder::class);
+        $this->seed(ItemsTableSeeder::class);
 
-        $response = $this->get('/');
+        $this->get('/')
+            ->assertStatus(200)
+            ->assertSeeTextInOrder(
+                Item::orderBy('id')
+                    ->pluck('name')
+                    ->toArray()
+            );
+    }
 
-        $response->assertViewHas('items', function ($viewItems) use ($items) {
-            return $viewItems->count() === $items->count();
-        });
 
+    public function testPurchasedItemsAreDisplayedSold()
+    {
+        $this->seed(CategoriesTableSeeder::class);
+        $this->seed(ConditionsTableSeeder::class);
+        $this->seed(ItemsTableSeeder::class);
 
-
-        $item = Item::factory()->create([
-            'name' => 'sold_item',
-            'delivery_address_id' => 1,
+        //factoryでDeliveryAddressも生成
+        $user = User::factory()->create([
+            'postal_code' => '123-4567',
+            'address' => 'address',
         ]);
+
+        $deliveryAddress = DeliveryAddress::where('user_id', $user->id)->get()->first();
+
+        Item::find(1)->update(['delivery_address_id' => $deliveryAddress->id]);
+
+        $this->get('/')->assertStatus(200)->assertSee('Sold');
+    }
+
+
+    public function testUserSoldItemsAreNotDisplayed()
+    {
+        /** @var \App\Models\User $user */
+        //初期登録処理
+        $user = User::factory()->create([
+            'email_verified_at' => now(),
+            'postal_code' => '123-4567',
+            'address' => 'address',
+        ]);
+
+        $this->seed(CategoriesTableSeeder::class);
+        $this->seed(ConditionsTableSeeder::class);
+        $this->seed(ItemsTableSeeder::class);
+
+        $item = Item::find(1);
+
+        Sell::create([
+            'user_id' => $user->id,
+            'item_id' => $item->id,
+        ]);
+
+        $this->actingAs($user)->get('/')->assertDontSee($item->name);
     }
 }

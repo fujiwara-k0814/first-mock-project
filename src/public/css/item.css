@@ -91,19 +91,19 @@
     text-align: center;
 }
 
-.item-favorite-form {
+.item-like-form {
     width: 100%;
     height: 100%;
 }
 
-.item-favorite-button-active,
-.item-favorite-button {
+.item-like-button-active,
+.item-like-button {
     border: none;
     background: none;
     padding: 0;
 }
 
-.item-favorite-button-active {
+.item-like-button-active {
     cursor: pointer;
 }
 
@@ -112,7 +112,12 @@
     height: auto;
 }
 
-.item__count {
+.like__count {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.comment__count {
     font-size: 14px;
     font-weight: 600;
 }
@@ -260,7 +265,7 @@
     margin-top: 5px;
 }
 
-.comment {
+.comment-body {
     width: 100%;
     height: 200px;
     border-radius: 5px;

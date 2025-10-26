@@ -5,7 +5,7 @@
 .purchase-form {
     display: flex;
     justify-content: space-between;
-    padding: 90px;
+    padding: 90px 80px;
 }
 
 .purchase-item__content {
@@ -209,4 +209,15 @@ option:focus-visible {
     padding: 10px 0;
     cursor: pointer;
     font-weight: 600;
+}
+
+@media (max-width: 1500px) {
+    .purchase-form {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    .purchase-payment__content {
+        padding: 90px 45px 0 45px;
+    }
 }

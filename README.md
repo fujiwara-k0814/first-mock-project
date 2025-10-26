@@ -2,7 +2,7 @@
   
 ## 環境構築  
 Dockerビルド  
- 1. `git clone リンク　git@github.com:fujiwara-k0814/first-mock-project.git`  
+ 1. `git clone git@github.com:fujiwara-k0814/first-mock-project.git`  
  2. DockerDesktopアプリを立ち上げる  
  3. `docker compose up -d --build`  
 ※MySQLはOSの都合上、各人でファイルを編集  
@@ -32,12 +32,13 @@ STRIPE_SECRET_KEY=sk_test_************ //←取得したキーを設定
 ``` text
 STRIPE_SECRET_KEY=sk_test_************ //←取得したキーを設定
 ```
- 10. `php artisan key:generate`  
- 11. `php artisan key:generate --env=testing`  
- 12. `php artisan migrate`  
- 13. `php artisan storage:link`  
- 14. `php artisan db:seed`  
- 15. `composer require stripe/stripe-php`  
+ 10. Stripeのテスト環境をONにする
+ 11. `php artisan key:generate`  
+ 12. `php artisan key:generate --env=testing`  
+ 13. `php artisan migrate`  
+ 14. `php artisan storage:link`  
+ 15. `php artisan db:seed`  
+ 16. `composer require stripe/stripe-php`  
   
    
 ## 使用技術  

@@ -12,14 +12,11 @@ class DeliveryAddressController extends Controller
     {
         $item = Item::find($item_id);
 
-
         $user = Auth::user();
-
         $deliveryAddress = $user->delivery_address;
 
-
+        //支払い方法リセット
         session()->forget('payment');
-
 
         return view('address', compact('item', 'deliveryAddress'));
     }
@@ -33,9 +30,7 @@ class DeliveryAddressController extends Controller
         ]);
 
         $user = Auth::user();
-
         $user->delivery_address->update($deliveryAddress);
-
 
         return redirect("/purchase/{$item_id}");
     }

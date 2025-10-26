@@ -23,7 +23,6 @@ class LikeToggleTest extends TestCase
     public function testClickingLikeIconAddsItemToLikedList()
     {
         /** @var \App\Models\User $user */
-        //初期登録処理
         $user = User::factory()->create([
             'email_verified_at' => now(),
             'postal_code' => '123-4567',
@@ -59,7 +58,6 @@ class LikeToggleTest extends TestCase
     public function testClickingLikeIconChangesColor()
     {
         /** @var \App\Models\User $user */
-        //初期登録処理
         $user = User::factory()->create([
             'email_verified_at' => now(),
             'postal_code' => '123-4567',
@@ -89,7 +87,6 @@ class LikeToggleTest extends TestCase
     public function testClickingLikedIconRemovesLike()
     {
         /** @var \App\Models\User $user */
-        //初期登録処理
         $user = User::factory()->create([
             'email_verified_at' => now(),
             'postal_code' => '123-4567',

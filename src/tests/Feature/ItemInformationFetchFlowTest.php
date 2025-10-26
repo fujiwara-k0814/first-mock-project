@@ -31,12 +31,11 @@ class ItemInformationFetchFlowTest extends TestCase
 
         User::factory()->create(['name' => 'test1']);
         User::factory()->create(['name' => 'test2']);
-
+        
         $users = User::all();
-
         foreach ($users as $user) {
             Like::create(['user_id' => $user->id, 'item_id' => $item->id,]);
-
+            
             if ($user->name === 'test1') {
                 Comment::create(['user_id' => $user->id, 'item_id' => $item->id, 'body' => 'テスト']);
             }

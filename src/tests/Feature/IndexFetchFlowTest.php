@@ -43,16 +43,19 @@ class IndexFetchFlowTest extends TestCase
         $this->seed(ConditionsTableSeeder::class);
         $this->seed(ItemsTableSeeder::class);
 
+        //Soldラベル無し確認
+        $this->get('/')->assertStatus(200)->assertDontSee('Sold');
+
         //factoryでDeliveryAddressも生成
         $user = User::factory()->create([
             'postal_code' => '123-4567',
             'address' => 'address',
         ]);
-
         $deliveryAddress = DeliveryAddress::where('user_id', $user->id)->get()->first();
 
         Item::find(1)->update(['delivery_address_id' => $deliveryAddress->id]);
 
+        //Soldラベル有り確認
         $this->get('/')->assertStatus(200)->assertSee('Sold');
     }
 
@@ -60,7 +63,6 @@ class IndexFetchFlowTest extends TestCase
     public function testUserSoldItemsAreNotDisplayed()
     {
         /** @var \App\Models\User $user */
-        //初期登録処理
         $user = User::factory()->create([
             'email_verified_at' => now(),
             'postal_code' => '123-4567',
@@ -73,11 +75,15 @@ class IndexFetchFlowTest extends TestCase
 
         $item = Item::find(1);
 
+        //出品前商品有り確認
+        $this->actingAs($user)->get('/')->assertSee($item->name);
+
         Sell::create([
             'user_id' => $user->id,
             'item_id' => $item->id,
         ]);
 
+        //出品後商品無し確認
         $this->actingAs($user)->get('/')->assertDontSee($item->name);
     }
 }

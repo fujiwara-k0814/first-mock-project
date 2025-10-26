@@ -22,6 +22,8 @@ class LogoutFlowTest extends TestCase
 
         $this->actingAs($user)->assertAuthenticated();
 
-        $this->post('/logout')->assertGuest();
+        $this->post('/logout');
+        
+        $this->assertGuest();
     }
 }

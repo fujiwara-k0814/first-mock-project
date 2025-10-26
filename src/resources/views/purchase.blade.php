@@ -25,10 +25,12 @@
                 <label for="payment" class="item-payment__label">支払い方法</label>
                 <select name="payment" id="payment" class="item-payment__select" onchange="this.form.submit()">
                     <option value="" hidden>選択してください</option>
-                    <option class="payment-option" value="konbini"{{ session('payment') == 'konbini' ? 'selected' : '' }}>コンビニ払い</option>
-                    <option class="payment-option" value="card"{{ session('payment') == 'card' ? 'selected' : '' }}>カード支払い</option>
+                    <option class="payment-option" 
+                        value="konbini"{{ session('payment') == 'konbini' ? 'selected' : '' }}>コンビニ払い</option>
+                    <option class="payment-option" 
+                        value="card"{{ session('payment') == 'card' ? 'selected' : '' }}>カード支払い</option>
                 </select>
-                <div class="item-payment__error">
+                <div class="purchase-form__error">
                     @error('payment')
                         {{ $message }}
                     @enderror
@@ -47,13 +49,20 @@
                     <span class="delivery-address">{{ $deliveryAddress->address }}</span>
                     <span class="delivery-building">{{ $deliveryAddress->building }}</span>
                 </div>
+                <div class="purchase-form__error">
+                    @error('delivery_address_id')
+                        {{ $message }}
+                    @enderror
+                </div>
             </div>
         </div>
         <div class="purchase-payment__content">
             <table class="payment-table">
                 <tr class="table-row">
                     <th class="table-header">商品代金</th>
-                    <td class="table-data-price"><span class="table-yen-mark">¥</span>{{ number_format($item->price) }}</td>
+                    <td class="table-data-price">
+                        <span class="table-yen-mark">¥</span>{{ number_format($item->price) }}
+                    </td>
                 </tr>
                 <tr class="table-row">
                     <th class="table-header">支払い方法</th>

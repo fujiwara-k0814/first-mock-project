@@ -23,7 +23,6 @@ class DeliveryAddressReflectionTest extends TestCase
     public function testSelectedDeliveryAddressIsReflectedOnPurchasePage()
     {
         /** @var \App\Models\User $user */
-        //初期登録処理
         $user = User::factory()->create([
             'email_verified_at' => now(),
             'postal_code' => '123-4567',
@@ -38,11 +37,9 @@ class DeliveryAddressReflectionTest extends TestCase
 
         $response = $this->actingAs($user)->get("/purchase/{$item->id}")->assertStatus(200);
 
-
         //初期状態確認
         $response->assertSee('123-4567');
         $response->assertSee('address');
-
 
         $this->actingAs($user)->get("/purchase/address/{$item->id}")->assertStatus(200);
 
@@ -53,7 +50,6 @@ class DeliveryAddressReflectionTest extends TestCase
 
         $response = $this->actingAs($user)->get("/purchase/{$item->id}");
 
-
         //初期状態確認
         $response->assertSee('765-4321');
         $response->assertSee('address_test');
@@ -63,7 +59,6 @@ class DeliveryAddressReflectionTest extends TestCase
     public function testDeliveryAddressIsPersistedWithPurchasedItem()
     {
         /** @var \App\Models\User $user */
-        //初期登録処理
         $user = User::factory()->create([
             'email_verified_at' => now(),
             'postal_code' => '123-4567',
@@ -85,16 +80,13 @@ class DeliveryAddressReflectionTest extends TestCase
 
         $deliveryAddress = DeliveryAddress::where('user_id', $user->id)->get()->first();
 
-
         //購入前配送先紐づけ無し確認
         $this->assertDatabaseMissing('items', [
             'id' => $item->id,
             'delivery_address_id' => $deliveryAddress->id,
         ]);
 
-
         $this->actingAs($user)->get("/purchase/{$item->id}");
-
 
         //actionはpost分岐での処理に必要なため付与
         $this->post("/purchase/{$item->id}", [
@@ -102,7 +94,6 @@ class DeliveryAddressReflectionTest extends TestCase
             'delivery_address_id' => $deliveryAddress->id,
             'action' => 'save',
         ]);
-
 
         //購入後配送先紐づけ確認
         $this->assertDatabaseHas('items', [

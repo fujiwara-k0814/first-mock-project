@@ -22,7 +22,6 @@ class PaymentMethodSelectionFlowTest extends TestCase
     public function testSelectedPaymentMethodIsReflectedOnPurchaseConfirmationPage()
     {
         /** @var \App\Models\User $user */
-        //初期登録処理
         $user = User::factory()->create([
             'email_verified_at' => now(),
             'postal_code' => '123-4567',
@@ -37,40 +36,34 @@ class PaymentMethodSelectionFlowTest extends TestCase
 
         $response = $this->actingAs($user)->get("/purchase/{$item->id}")->assertStatus(200);
 
-
         //支払い方法初期状態確認
         $this->assertMatchesRegularExpression(
             '/<option[^>]*value="konbini"[^>]*>コンビニ払い<\/option>/',
             $response->getContent()
         );
-
         $this->assertMatchesRegularExpression(
             '/<option[^>]*value="card"[^>]*>カード支払い<\/option>/',
             $response->getContent()
         );
-
         $this->assertMatchesRegularExpression(
             '/<td class="table-data-payment">\s*<\/td>/',
             $response->getContent()
         );
 
-
         $response = $this->followingRedirects()->post("/purchase/{$item->id}", [
             'payment' => 'card',
+            'delivery_address_id' => $user->delivery_address->id,
         ]);
-
 
         //支払い方法状態確認
         $this->assertMatchesRegularExpression(
             '/<option[^>]*value="konbini"[^>]*>コンビニ払い<\/option>/',
             $response->getContent()
         );
-
         $this->assertMatchesRegularExpression(
             '/<option[^>]*value="card"[^>]*selected[^>]*>カード支払い<\/option>/',
             $response->getContent()
         );
-
         $this->assertMatchesRegularExpression(
             '/<td class="table-data-payment">\s*カード支払い\s*<\/td>/',
             $response->getContent()

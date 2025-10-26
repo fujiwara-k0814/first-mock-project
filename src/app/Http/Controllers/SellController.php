@@ -14,9 +14,7 @@ class SellController extends Controller
     {
         $categories = Category::all();
 
-
         $conditions = Condition::all();
-
 
         return view('sell', compact('categories', 'conditions'));
     }
@@ -30,7 +28,6 @@ class SellController extends Controller
                 return redirect('/sell')->withInput();
             }
 
-
             $imagePath = $request->file('image_path')->store('item_images', 'public');
 
             session(['item_image_path' => "storage/$imagePath"]);
@@ -38,34 +35,25 @@ class SellController extends Controller
             return redirect('/sell')->withInput();
         }
 
-
         
         //全体フォーム処理
-
         $itemInformation = $request->only([
             'name',
             'brand',
             'price',
             'description'
         ]);
-
         $itemInformation['condition_id'] = $request->input('condition');
-
         $itemInformation['image_path'] = $request->input('image_path');
-
         $item = Item::create($itemInformation);
-
 
         $item->categories()->sync($request->input('category'));
 
-
+        /** @var \App\Models\User $user */
         $user = Auth::user();
-
         $user->sells()->create(['item_id' => $item->id]);
 
-
         session()->forget('item_image_path');
-
 
         return redirect('/');
     }

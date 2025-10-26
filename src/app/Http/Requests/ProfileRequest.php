@@ -36,7 +36,7 @@ class ProfileRequest extends FormRequest
                 ];
             }
             return [
-                'name' => ['required', 'max:20'],
+                'name' => ['required'],
                 'postal_code' => ['required', 'regex:/^\d{3}-\d{4}$/'],
                 'address' => ['required'],
             ];

@@ -22,7 +22,6 @@ class CommentSendValidationTest extends TestCase
     public function testUserCanPostCommentToItem()
     {
         /** @var \App\Models\User $user */
-        //初期登録処理
         $user = User::factory()->create([
             'email_verified_at' => now(),
             'postal_code' => '123-4567',
@@ -42,19 +41,15 @@ class CommentSendValidationTest extends TestCase
             'item_id' => $item->id, 
             'user_id' => $user->id,
         ]);
-
         $this->assertMatchesRegularExpression(
             '/<span class="comment__count">\s*0\s*<\/span>/',
             $response->getContent()
         );
-
         $response->assertSee('コメント(0)');
-
 
         $response = $this->followingRedirects()->post("/item/{$item->id}/comment", [
             'body' => 'テスト'
         ]);
-
 
         //コメント有り、カウント1確認
         $this->assertDatabaseHas('comments', [
@@ -62,12 +57,10 @@ class CommentSendValidationTest extends TestCase
             'user_id' => $user->id, 
             'body' => 'テスト'
         ]);
-
         $this->assertMatchesRegularExpression(
             '/<span class="comment__count">\s*1\s*<\/span>/',
             $response->getContent()
         );
-
         $response->assertSee('コメント(1)');
     }
 
@@ -86,19 +79,15 @@ class CommentSendValidationTest extends TestCase
         $this->assertDatabaseMissing('comments', [
             'item_id' => $item->id,
         ]);
-
         $this->assertMatchesRegularExpression(
             '/<span class="comment__count">\s*0\s*<\/span>/',
             $response->getContent()
         );
-
         $response->assertSee('コメント(0)');
-
 
         $this->followingRedirects()->post("/item/{$item->id}/comment", [
             'body' => 'テスト'
         ]);
-
 
         //ミドルウェアが作動するので商品一覧ページへ再アクセス
         $response = $this->get("/item/{$item->id}")->assertStatus(200);
@@ -108,12 +97,10 @@ class CommentSendValidationTest extends TestCase
         $this->assertDatabaseMissing('comments', [
             'item_id' => $item->id,
         ]);
-
         $this->assertMatchesRegularExpression(
             '/<span class="comment__count">\s*0\s*<\/span>/',
             $response->getContent()
         );
-
         $response->assertSee('コメント(0)');
     }
 
@@ -121,7 +108,6 @@ class CommentSendValidationTest extends TestCase
     public function testValidationMessageIsShownWhenCommentBodyIsEmpty()
     {
         /** @var \App\Models\User $user */
-        //初期登録処理
         $user = User::factory()->create([
             'email_verified_at' => now(),
             'postal_code' => '123-4567',
@@ -141,7 +127,6 @@ class CommentSendValidationTest extends TestCase
         ]);
 
         $response->assertSessionHasErrors(['body']);
-
         $this->followRedirects($response)->assertSee('コメントを入力してください');
     }
 
@@ -149,7 +134,6 @@ class CommentSendValidationTest extends TestCase
     public function testValidationMessageIsShownWhenCommentExceedsMaxLength()
     {
         /** @var \App\Models\User $user */
-        //初期登録処理
         $user = User::factory()->create([
             'email_verified_at' => now(),
             'postal_code' => '123-4567',
@@ -165,13 +149,11 @@ class CommentSendValidationTest extends TestCase
         $this->actingAs($user)->get("/item/{$item->id}")->assertStatus(200);
 
         $longComment = str_repeat('あ', 256);
-
         $response = $this->post("/item/{$item->id}/comment", [
             'body' => $longComment
         ]);
 
         $response->assertSessionHasErrors(['body']);
-
         $this->followRedirects($response)->assertSee('コメントは255文字以下で入力してください');
     }
 }

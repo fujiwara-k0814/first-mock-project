@@ -19,7 +19,6 @@ class SellRegistrationFlowTest extends TestCase
     public function testItemListingFormSavesAllRequiredInformation()
     {
         /** @var \App\Models\User $user */
-        //初期登録処理
         $user = User::factory()->create([
             'image_path' => 'storage/profile_images/user_image.png',
             'name' => 'test',
@@ -31,7 +30,6 @@ class SellRegistrationFlowTest extends TestCase
         $this->seed(CategoriesTableSeeder::class);
         $this->seed(ConditionsTableSeeder::class);
 
-
         //商品無し確認
         $this->assertDatabaseMissing('items', [
             'condition_id' => 1,
@@ -41,7 +39,6 @@ class SellRegistrationFlowTest extends TestCase
             'price' => '10000',
             'description' => 'test_description',
         ]);
-
         $this->assertDatabaseMissing('category_item', [
             'item_id' => 1,
             'item_id' => 1,
@@ -51,9 +48,7 @@ class SellRegistrationFlowTest extends TestCase
             'category_id' => 3,
         ]);
 
-
         $this->actingAs($user)->get('/sell')->assertStatus(200);
-
 
         //actionはpost分岐での処理に必要なため付与
         $response  = $this->post('/sell', [
@@ -66,7 +61,6 @@ class SellRegistrationFlowTest extends TestCase
             'category' => [1, 2, 3],
             'action' => 'save',
         ]);
-        
 
         //商品有り確認
         $this->assertDatabaseHas('items', [
@@ -77,7 +71,6 @@ class SellRegistrationFlowTest extends TestCase
             'price' => '10000',
             'description' => 'test_description',
         ]);
-
         $this->assertDatabaseHas('category_item', [
             'item_id' => 1,
             'item_id' => 1,

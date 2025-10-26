@@ -31,7 +31,6 @@ class EmailVerificationFlowTest extends TestCase
         //通知機能発火
         $user->sendEmailVerificationNotification();
 
-        // dd(Notification::sent($user, \Illuminate\Auth\Notifications\VerifyEmail::class));
         //認証メールの送信確認
         Notification::assertSentTo(
             $user,

@@ -19,7 +19,8 @@
             </div>
             <div class="profile-select__content">
                 <label for="image_path" class="profile-select__label">画像を選択する</label>
-                <input type="file" name="image_path" id="image_path" class="profile-select__image" onchange="this.form.submit()">
+                <input type="file" name="image_path" id="image_path" class="profile-select__image" 
+                    onchange="this.form.submit()">
                 <div class="profile-form__error">
                     @error('image_path')
                         {{ $message }}
@@ -38,7 +39,8 @@
         </div>
         <div class="profile-form__group">
             <label for="postal_code" class="profile-form__label">郵便番号</label>
-            <input type="text" name="postal_code" id="postal_code" class="profile-form__input" value="{{ old('postal_code', $user->postal_code) }}">
+            <input type="text" name="postal_code" id="postal_code" class="profile-form__input" 
+                value="{{ old('postal_code', $user->postal_code) }}">
             <div class="profile-form__error">
                 @error('postal_code')
                     {{ $message }}
@@ -47,7 +49,8 @@
         </div>
         <div class="profile-form__group">
             <label for="address" class="profile-form__label">住所</label>
-            <input type="text" name="address" id="address" class="profile-form__input" value="{{ old('address', $user->address) }}">
+            <input type="text" name="address" id="address" class="profile-form__input" 
+                value="{{ old('address', $user->address) }}">
             <div class="profile-form__error">
                 @error('address')
                     {{ $message }}
@@ -56,7 +59,8 @@
         </div>
         <div class="profile-form__group">
             <label for="building" class="profile-form__label">建物名</label>
-            <input type="text" name="building" id="building" class="profile-form__input" value="{{ old('building', $user->building) }}">
+            <input type="text" name="building" id="building" class="profile-form__input" 
+                value="{{ old('building', $user->building) }}">
             <div class="profile-form__error">
                 @error('building')
                     {{ $message }}

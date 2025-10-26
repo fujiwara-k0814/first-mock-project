@@ -32,7 +32,6 @@ class SearchFlowTest extends TestCase
 
         //腕時計以外ないことの確認
         $otherNames = Item::where('name', '!=', '腕時計')->pluck('name')->all();
-
         foreach ($otherNames as $name) {
             $response->assertDontSee($name);
         }
@@ -42,7 +41,6 @@ class SearchFlowTest extends TestCase
     public function testKeywordSearchIsPreservedInMylist()
     {
         /** @var \App\Models\User $user */
-        //初期登録処理
         $user = User::factory()->create([
             'email_verified_at' => now(),
             'postal_code' => '123-4567',
@@ -53,13 +51,16 @@ class SearchFlowTest extends TestCase
         $this->seed(ConditionsTableSeeder::class);
         $this->seed(ItemsTableSeeder::class);
 
-        //腕時計を含めた商品を3つ取得
+        //腕時計を含めた商品を3つ取得しマイリストへ登録
         $items = Item::find([1, 2, 3]);
-
         foreach ($items as $item) {
             Like::create(['user_id' => $user->id, 'item_id' => $item->id]);
         }
+
+        $response = $this->actingAs($user)->get('/?tab=mylist&keyword=時計');
         
-        $this->actingAs($user)->get('/?tab=mylist&keyword=時計')->assertSee('腕時計');
+        $response->assertSee('腕時計');
+        $response->assertDontSee('HDD');
+        $response->assertDontSee('玉ねぎ3束');
     }
 }

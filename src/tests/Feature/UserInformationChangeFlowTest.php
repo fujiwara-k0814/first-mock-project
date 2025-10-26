@@ -18,7 +18,6 @@ class UserInformationChangeFlowTest extends TestCase
     public function testUserEditFormDisplaysPreviouslySetValues()
     {
         /** @var \App\Models\User $user */
-        //初期登録処理
         $user = User::factory()->create([
             'image_path' => 'storage/profile_images/test_image.png',
             'name' => 'test',

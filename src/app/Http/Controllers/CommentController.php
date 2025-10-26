@@ -14,10 +14,9 @@ class CommentController extends Controller
             'body' => $request->input('body')
         ];
 
+        /** @var \App\Models\User $user */
         $user = Auth::user();
-
         $user->comments()->create($itemComment);
-
 
         return redirect("/item/$item_id");
     }

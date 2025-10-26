@@ -25,7 +25,6 @@ class UserInformationFetchFlowTest extends TestCase
     public function testUserInformationIsDisplayedWithProfileAndItemLists()
     {
         /** @var \App\Models\User $user */
-        //初期登録処理
         $user = User::factory()->create([
             'image_path' => 'storage/profile_images/user_image.png',
             'name' => 'test',
@@ -42,13 +41,11 @@ class UserInformationFetchFlowTest extends TestCase
 
         $purchaseItem = Item::find(2);
 
-
         //出品商品一覧初期状態確認
         $response = $this->actingAs($user)->get('/mypage?page=sell')->assertStatus(200);
         $response->assertSee($user->image_path);
         $response->assertSee($user->name);
         $response->assertDontSee($soldItem->name);
-
 
         //購入商品一覧初期状態確認
         $response = $this->actingAs($user)->get('/mypage?page=buy')->assertStatus(200);
@@ -56,26 +53,21 @@ class UserInformationFetchFlowTest extends TestCase
         $response->assertSee($user->name);
         $response->assertDontSee($purchaseItem->name);
 
-
         //出品登録
         Sell::create(['user_id' => $user->id, 'item_id' => $soldItem->id,]);
-
 
         //購入登録
         $deliveryAddress = DeliveryAddress::where('user_id', $user->id)->get()->first();
         $purchaseItem->update(['delivery_address_id' => $deliveryAddress->id]);
 
-
         //user情報再取得
         $user = User::find(Auth::id());
-
 
         //出品商品一覧状態確認
         $response = $this->actingAs($user)->get('/mypage?page=sell')->assertStatus(200);
         $response->assertSee($user->image_path);
         $response->assertSee($user->name);
         $response->assertSee($soldItem->name);
-
 
         //購入商品一覧状態確認
         $response = $this->actingAs($user)->get('/mypage?page=buy')->assertStatus(200);

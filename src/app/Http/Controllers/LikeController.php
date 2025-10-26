@@ -8,6 +8,7 @@ class LikeController extends Controller
 {
     public function update($item_id)
     {
+        /** @var \App\Models\User $user */
         $user = Auth::user();
 
         //いいねの有無で生成削除(ルート共通化)
@@ -16,7 +17,6 @@ class LikeController extends Controller
         }else{
             $user->likes()->create(['item_id' => $item_id]);
         }
-        
 
         return redirect("/item/$item_id");
     }

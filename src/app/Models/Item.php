@@ -55,7 +55,6 @@ class Item extends Model
         );
     }
 
-
     //検索項目
     public function scopeKeywordSearch($query, $keyword)
     {

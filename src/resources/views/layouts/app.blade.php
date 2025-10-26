@@ -22,7 +22,8 @@
                     @if (request()->query('tab') === 'mylist')
                         <input type="hidden" name="tab" value="mylist">
                     @endif
-                    <input type="text" name="keyword" class="header__search-input" placeholder="なにをお探しですか？" value="{{ request('keyword') }}">
+                    <input type="text" name="keyword" class="header__search-input" placeholder="なにをお探しですか？" 
+                        value="{{ request('keyword') }}">
                 </form>
                 <nav class="header__nav">
                     <ul class="header__nav-list">

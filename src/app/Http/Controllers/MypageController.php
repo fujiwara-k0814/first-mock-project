@@ -12,7 +12,6 @@ class MypageController extends Controller
     public function create()
     {
         $user = Auth::user();
-
         
         return view('profile', compact('user'));
     }
@@ -26,7 +25,6 @@ class MypageController extends Controller
                 return redirect('/mypage/profile')->withInput();
             }
 
-
             $imagePath = $request->file('image_path')->store('profile_images', 'public');
 
             session(['profile_image_path' => "storage/$imagePath"]);
@@ -35,9 +33,8 @@ class MypageController extends Controller
         }
 
 
-
         //全体フォーム処理
-
+        /** @var \App\Models\User $user */
         $user = Auth::user();
 
         $userAddress = $request->only([
@@ -53,18 +50,12 @@ class MypageController extends Controller
             $user->delivery_address()->create($userAddress);
             $redirectPath = '/?tab=mylist';
         }
-
         $user->image_path = $request->input('image_path');
-
         $user->name = $request->input('name');
-
         $user->fill($userAddress);
-
         $user->save();
 
-
         session()->forget('profile_image_path');
-
 
         return redirect($redirectPath);
     }
@@ -79,13 +70,9 @@ class MypageController extends Controller
         }else{
             $items = $user->soldItems;
         }
-        
 
-        session()->forget('profile_image_path');
-
-
-        session()->forget('item_image_path');
-
+        //プロフィール画像、出品画像リセット
+        session()->forget(['profile_image_path', 'item_image_path']);
 
         return view('mypage', compact('user', 'items'));
     }

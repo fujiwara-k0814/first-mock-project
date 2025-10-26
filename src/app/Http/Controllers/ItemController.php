@@ -11,6 +11,7 @@ class ItemController extends Controller
 {
     public function index(Request $request)
     {
+        /** @var \App\Models\User $user */
         $user = Auth::user();
 
         //メール未認証リダイレクト
@@ -23,14 +24,12 @@ class ItemController extends Controller
             return redirect('/mypage/profile');
         }
         
-
         if (Auth::check()) {
             if ($request->query('tab') === 'mylist') {
                 $items = $user->likedItems()->keywordSearch($request->keyword)->get();
             }else{
                 //出品アイテムid取得→除外
                 $soldItemIds = $user->soldItems()->pluck('id');
-
                 $items = Item::whereNotIn('id', $soldItemIds)->keywordSearch($request->keyword)->get();
             }
         }else{
@@ -41,12 +40,8 @@ class ItemController extends Controller
             }
         }
 
-
-        session()->forget('profile_image_path');
-
-
-        session()->forget('item_image_path');
-
+        //プロフィール画像、出品画像リセット
+        session()->forget(['profile_image_path', 'item_image_path']);
 
         return view('index', compact('items'));
     }
@@ -56,16 +51,13 @@ class ItemController extends Controller
         $item = Item::with(['categories', 'comments', 'condition', 'likes'])
                     ->withCount(['comments', 'likes'])
                     ->find($item_id);
-        
 
         $comments = Comment::where('item_id', $item_id)->get();
 
-
         $user = Auth::user();
 
-
+        //支払い方法リセット
         session()->forget('payment');
-
 
         return view('item', compact('item', 'comments', 'user'));
     }

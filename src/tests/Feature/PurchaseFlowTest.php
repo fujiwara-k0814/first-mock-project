@@ -23,7 +23,6 @@ class PurchaseFlowTest extends TestCase
     public function testUserCanPurchaseItemFromDetailPage()
     {
         /** @var \App\Models\User $user */
-        //初期登録処理
         $user = User::factory()->create([
             'email_verified_at' => now(),
             'postal_code' => '123-4567',
@@ -58,7 +57,6 @@ class PurchaseFlowTest extends TestCase
     public function testSoldLabelIsShownForPurchasedItemInItemList()
     {
         /** @var \App\Models\User $user */
-        //初期登録処理
         $user = User::factory()->create([
             'email_verified_at' => now(),
             'postal_code' => '123-4567',
@@ -92,7 +90,6 @@ class PurchaseFlowTest extends TestCase
     public function testPurchasedItemIsListedInProfilePurchaseSection()
     {
         /** @var \App\Models\User $user */
-        //初期登録処理
         $user = User::factory()->create([
             'email_verified_at' => now(),
             'postal_code' => '123-4567',

@@ -26,27 +26,24 @@ use App\Http\Controllers\VerifyEmailController;
 Route::get('/', [ItemController::class, 'index']);
 Route::get('/item/{item_id}', [ItemController::class, 'show']);
 
-
 //認証、初回登録済操作
 Route::middleware(['auth', 'verified', 'first.login'])->group(function(){
-    Route::get('/mypage', [MypageController::class, 'show']);
     Route::get('/purchase/{item_id}', [PurchaseController::class, 'show']);
     Route::post('/purchase/{item_id}', [PurchaseController::class, 'store']);
     Route::get('/purchase/address/{item_id}', [DeliveryAddressController::class, 'edit']);
     Route::post('/purchase/address/{item_id}', [DeliveryAddressController::class, 'update']);
     Route::get('/sell', [SellController::class, 'create']);
     Route::post('/sell', [SellController::class, 'store']);
+    Route::get('/mypage', [MypageController::class, 'show']);
     Route::post('/item/{item_id}/comment', [CommentController::class, 'store']);
     Route::post('/item/{item_id}/like', [LikeController::class, 'update']);
 });
-
 
 //認証済操作
 Route::middleware('auth', 'verified')->group(function(){
     Route::get('/mypage/profile', [MypageController::class, 'create']);
     Route::post('/mypage/profile', [MypageController::class, 'store']);
 });
-
 
 //メール認証操作(システム制約でname付与)
 Route::get('/email/verify', [VerifyEmailController::class, 'notice'])

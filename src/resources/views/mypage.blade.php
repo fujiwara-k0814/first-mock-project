@@ -19,8 +19,10 @@
         <a href="/mypage/profile" class="mypage__edit-link">プロフィールを編集</a>
     </div>
     <div class="mypage__select-tab__content">
-        <a href="mypage?page=sell" class="{{ request('page') === 'buy' ? 'sold-tab' : 'sold-tab-active' }}">出品した商品</a>
-        <a href="mypage?page=buy" class="{{ request('page') === 'buy' ? 'purchased-tab-active' : 'purchased-tab' }}">購入した商品</a>
+        <a href="mypage?page=sell" 
+            class="{{ request('page') === 'buy' ? 'sold-tab' : 'sold-tab-active' }}">出品した商品</a>
+        <a href="mypage?page=buy" 
+            class="{{ request('page') === 'buy' ? 'purchased-tab-active' : 'purchased-tab' }}">購入した商品</a>
     </div>
     <div class="item-list__inner">
         @foreach ($items as $item)

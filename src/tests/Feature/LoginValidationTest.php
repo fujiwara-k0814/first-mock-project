@@ -25,7 +25,6 @@ class LoginValidationTest extends TestCase
         ]);
 
         $response->assertSessionHasErrors(['email']);
-
         $this->followRedirects($response)->assertSee('メールアドレスを入力してください');
     }
 
@@ -40,7 +39,6 @@ class LoginValidationTest extends TestCase
         ]);
 
         $response->assertSessionHasErrors(['password']);
-
         $this->followRedirects($response)->assertSee('パスワードを入力してください');
     }
 
@@ -60,7 +58,6 @@ class LoginValidationTest extends TestCase
         ]);
 
         $response->assertSessionHasErrors(['email']);
-
         $this->followRedirects($response)->assertSee('ログイン情報が登録されていません');
     }
 

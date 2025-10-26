@@ -29,7 +29,8 @@
         </div>
         <div class="register-form__group">
             <label for="password" class="register-form__label">パスワード</label>
-            <input type="password" name="password" id="password" class="register-form__input" value="{{ old('password') }}">
+            <input type="password" name="password" id="password" class="register-form__input" 
+                value="{{ old('password') }}">
             <div class="register-form__error">
                 @error('password')
                     {{ $message }}
@@ -38,7 +39,8 @@
         </div>
         <div class="register-form__group">
             <label for="password_confirmation" class="register-form__label">確認用パスワード</label>
-            <input type="password" name="password_confirmation" id="password_confirmation" class="register-form__input" value="{{ old('password_confirmation') }}">
+            <input type="password" name="password_confirmation" id="password_confirmation" 
+                class="register-form__input" value="{{ old('password_confirmation') }}">
             <div class="register-form__error">
                 @error('password_confirmation')
                     {{ $message }}

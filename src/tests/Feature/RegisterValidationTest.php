@@ -28,7 +28,6 @@ class RegisterValidationTest extends TestCase
         ]);
 
         $response->assertSessionHasErrors(['name']);
-
         $this->followRedirects($response)->assertSee('お名前を入力してください');
     }
 
@@ -45,7 +44,6 @@ class RegisterValidationTest extends TestCase
         ]);
 
         $response->assertSessionHasErrors(['email']);
-
         $this->followRedirects($response)->assertSee('メールアドレスを入力してください');
     }
 
@@ -62,7 +60,6 @@ class RegisterValidationTest extends TestCase
         ]);
 
         $response->assertSessionHasErrors(['password']);
-
         $this->followRedirects($response)->assertSee('パスワードを入力してください');
     }
 
@@ -79,7 +76,6 @@ class RegisterValidationTest extends TestCase
         ]);
 
         $response->assertSessionHasErrors(['password']);
-
         $this->followRedirects($response)->assertSee('パスワードは8文字以上で入力してください');
     }
 
@@ -96,7 +92,6 @@ class RegisterValidationTest extends TestCase
         ]);
 
         $response->assertSessionHasErrors(['password']);
-
         $this->followRedirects($response)->assertSee('パスワードと一致しません');
     }
 
@@ -116,11 +111,9 @@ class RegisterValidationTest extends TestCase
             'name' => 'test',
             'email' => 'test@example.com',
         ]);
-
         $user = User::where('email', 'test@example.com')->first();
-
         $this->assertTrue(Hash::check('password', $user->password));
-
+        
         $response->assertRedirect('/mypage/profile');
     }
 }

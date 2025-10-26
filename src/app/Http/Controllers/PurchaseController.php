@@ -14,11 +14,8 @@ class PurchaseController extends Controller
     {
         $item = Item::find($item_id);
 
-
         $user = Auth::user();
-
         $deliveryAddress = $user->delivery_address;
-
 
         return view('purchase', compact('item', 'deliveryAddress'));
     }
@@ -32,21 +29,15 @@ class PurchaseController extends Controller
             return redirect("/purchase/$item_id")->withInput();
         }
 
-
         
         //全体フォーム処理
-
         //DB処理
         $item = Item::find($item_id);
-
         $item->delivery_address_id = $request->input('delivery_address_id');
-
         $item->save();
-
         
         //Stripe処理
-        Stripe::setApiKey(config('services.stripe.secret'));
-        
+        Stripe::setApiKey(config('services.stripe.secret')); 
         $session = Session::create([
             'payment_method_types' => [$request->input('payment')],
             'line_items' => [[

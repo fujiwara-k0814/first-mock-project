@@ -3,7 +3,7 @@
     display: grid;
     grid-template-columns: repeat(auto-fill, 590px);
     justify-content: center;
-    gap: clamp(50px, 10vw, 90px);
+    gap: clamp(50px, 10vw, 120px);
     padding: 60px 50px;
 }
 

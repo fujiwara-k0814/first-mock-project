@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="{{ asset('css/sanitize.css') }}">
     <link rel="stylesheet" href="{{ asset('css/common.css') }}">
-    <title>Flea Market App</title>
+    <title>FleaMarketApp</title>
     @yield('css')
 </head>
 <body>

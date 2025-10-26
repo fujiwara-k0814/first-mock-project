@@ -82,7 +82,12 @@ Laravel環境構築
  composer require stripe/stripe-php
  ```
   
-
+テスト実行コマンド  
+``` bash
+php artisan test tests/Feature
+```
+  
+  
 ## 使用技術  
 ・PHP 8.1  
 ・Lravel 8.83  

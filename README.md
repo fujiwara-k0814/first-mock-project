@@ -11,7 +11,7 @@ Laravel環境構築
  1. mkdir src/storage/app/public/item_images  
  2. cp -r src/database/seeders/images/* src/storage/app/public/item_images  
  3. docker compose exec php bash  
- 4. compopser install  
+ 4. composer install  
  5. Stripeのダッシュボードにアクセスし、サンドボックス画面でシークレットキーを取得  
  6. .env.exampleファイルから.envファイルを作成し、環境変数を設定  
  7. .env.testing.exampleファイルから.env.testingファイルを作成し、環境変数を設定  

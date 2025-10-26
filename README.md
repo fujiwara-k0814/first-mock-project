@@ -32,24 +32,30 @@ Laravel環境構築
  composer install
  ```
  5. .env.exampleファイルから.envファイルを作成  
+ ``` bash
+ cp .env.example .env
+ ```
  6. 環境変数を設定  
-``` text
-DB_CONNECTION=mysql
-DB_HOST=mysql
-DB_PORT=3306
-DB_DATABASE=laravel_db
-DB_USERNAME=laravel_user
-DB_PASSWORD=laravel_pass
-```
- 7. Stripeのダッシュボードにアクセスし、シークレットキーを取得。環境変数を設定
-``` text
-STRIPE_SECRET_KEY=sk_test_************ //←取得したキーを設定
-```
+ ``` text
+ DB_CONNECTION=mysql
+ DB_HOST=mysql
+ DB_PORT=3306
+ DB_DATABASE=laravel_db
+ DB_USERNAME=laravel_user
+ DB_PASSWORD=laravel_pass
+ ```
+ 7. Stripeのダッシュボードへアクセスし、シークレットキーを取得。環境変数を設定
+ ``` text
+ STRIPE_SECRET_KEY=sk_test_************ //←取得したキーを設定
+ ```
  8. .env.testing.exampleファイルから.env.testingファイルを作成  
- 9. Stripeのダッシュボードにアクセスし、シークレットキーを取得。環境変数を設定
-``` text
-STRIPE_SECRET_KEY=sk_test_************ //←取得したキーを設定
-```
+ ``` bash
+ cp .env.testing.example .env.testing
+ ```
+ 9. Stripeのダッシュボードへアクセスし、シークレットキーを取得。環境変数を設定
+ ``` text
+ STRIPE_SECRET_KEY=sk_test_************ //←取得したキーを設定
+ ```
  10. Stripeのテスト環境をONにする
  11. アプリケーションキーの生成  
  ``` bash
@@ -98,5 +104,5 @@ STRIPE_SECRET_KEY=sk_test_************ //←取得したキーを設定
   (商品一覧画面へのページ遷移など)  
 ・初回ログイン時のプロフィール編集画面への遷移を初期登録として、完了するまで他の操作を受け付けない  
   (他の画面への遷移や商品検索など。ログアウトボタンのみ機能)  
-・メール認証画面の「認証はこちらから」を押下げした場合にMailHogの画面に遷移し、手動で認証を得てから、  
+・メール認証画面の「認証はこちらから」を押下げした場合にMailHogのサイトへ遷移し、手動で認証を得てから、  
   プロフィール編集画面へ遷移する
